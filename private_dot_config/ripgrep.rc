@@ -1,0 +1,13 @@
+--glob
+!**/Code/User/History/
+--glob
+!**/Code/User/globalStorage/
+--glob
+!**/Code/User/sync/
+--glob
+!**/Code/CachedExtensions/
+--glob
+!**/Code/CachedProfilesData/
+--glob
+!**google-chrome/Default/Preferences
+--type-not=svg

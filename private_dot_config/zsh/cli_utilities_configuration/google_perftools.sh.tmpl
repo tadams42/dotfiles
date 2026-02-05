@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# Google pertools pprof is renamed in Ubuntu because there are other packages
+# containing this command
+# export PPROF_PATH=/usr/bin/google-pprof
+
+{{- end }}

@@ -1,0 +1,11 @@
+# htop aliases and similar stuff
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# -u --user[=USERNAME|UID]
+#    Show only the processes of a given user, or self if omitted
+alias htopu='htop --user --tree --sort-key=PID'
+# get all PID-s in wezterm process and children; start htop filtered by only those PIDs
+alias wtree='htop --user --tree --sort-key=PID -p "$(pstree -p $(pgrep -f wezterm-gui) | grep -oP "\(\d+\)" | tr -d "()" | paste -s -d,)"'
+
+{{- end }}

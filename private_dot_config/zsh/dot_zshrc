@@ -1,0 +1,49 @@
+#!/usr/bin/zsh
+
+# export startup_trace="$startup_trace\n/home/foobar/.config/zsh/.zshrc"
+
+# This file is sourced only for interactive shells. It should contain commands to set up
+# aliases, functions, options, key bindings, etc.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+alias help=run-help
+
+########################################################################################
+# Initialization of shell helper utilities which modify various parts of built in shell
+# behavior. These tools improve shell's prompt, completions module, etc...
+# Initialization of these tolls can be slow - so we don't want it to execute in any of
+# other shell initialization files.
+########################################################################################
+source $HOME/.config/zsh/shell_configuration/01_colors.zsh
+source $HOME/.config/zsh/shell_configuration/02_antidote.zsh
+source $HOME/.config/zsh/shell_configuration/03_history.zsh
+source $HOME/.config/zsh/shell_configuration/04_prompt.zsh
+
+########################################################################################
+# Initialization of external tools.
+# These don't modify shell itself, but are integrated into it. Think of various
+# development tools, local runtimes for Python, Rust, etc...
+# Initialization of these tolls can be slow - so we don't want it to execute in any of
+# other shell initialization files - don't put them into `zshenv`
+########################################################################################
+source $HOME/.config/zsh/cli_utilities_configuration/bat.sh
+source $HOME/.config/zsh/cli_utilities_configuration/coreutils.sh
+source $HOME/.config/zsh/cli_utilities_configuration/dev_vars.sh
+source $HOME/.config/zsh/cli_utilities_configuration/docker.sh
+source $HOME/.config/zsh/cli_utilities_configuration/electron.sh
+source $HOME/.config/zsh/cli_utilities_configuration/fnm.sh
+source $HOME/.config/zsh/cli_utilities_configuration/grep.sh
+source $HOME/.config/zsh/cli_utilities_configuration/isodate.plugin.zsh
+source $HOME/.config/zsh/cli_utilities_configuration/python.sh
+source $HOME/.config/zsh/cli_utilities_configuration/ripgrep.sh
+source $HOME/.config/zsh/cli_utilities_configuration/rust.sh
+source $HOME/.config/zsh/cli_utilities_configuration/vcpkg.sh
+source $HOME/.config/zsh/cli_utilities_configuration/opencode.sh
+source $HOME/.config/zsh/cli_utilities_configuration/htop.sh
+
+# Finally, setup completion, after all commands and functions had been loaded
+source $HOME/.config/zsh/shell_configuration/05_completion.zsh
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path

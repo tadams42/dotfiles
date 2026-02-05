@@ -1,0 +1,43 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+########################################################################################
+## niaflow project compilation options
+# export NIAFLOWEXT_DEBUG=true
+# export NIAFLOWEXT_SKIP=1
+
+########################################################################################
+## Ubuntu / Debian packaging
+# This causes pbuilder to fail building if the symbols are incorrect.
+# export DPKG_GENSYMBOLS_CHECK_LEVEL=4
+# export DEB_BUILD_OPTIONS=nocheck
+# export DEV_BUILD_DIR_ROOT=.build
+# export DEBEMAIL="foo@local.dev"
+# export DEBFULLNAME="Foo"
+
+########################################################################################
+## AWS cli with SSO profile as default
+#
+# Don't export this variable, Python `boto3` will also pick it up, which we ceratinly
+# don't want to!
+#     export AWS_PROFILE=work
+#
+# Use following aliases instead:
+#     alias aws='aws --profile work'
+#     alias awslin='aws sso login --profile work'
+#
+# But these aliases break completion... Using following should fix that:
+aws() {
+    command aws --profile work "$@"
+}
+# finally, we also need to setup custom `_aws_native_completer` in `05_completion.zsh`
+# because `aws-cli` doesn't provide fixed `_aws` completer definitions file
+
+########################################################################################
+## Misc
+# export FLASK_ENV=development
+# export ZEPHYR_SDK_INSTALL_DIR="$HOME/.local/opt"
+# export QT_LOGGING_RULES="kwin_*.debug=true"
+
+{{- end }}

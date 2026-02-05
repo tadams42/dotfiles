@@ -1,0 +1,131 @@
+#!/usr/bin/zsh
+
+# export startup_trace="$startup_trace\n/home/foobar/.config/zsh/.zshenv"
+
+# ~/.zshenv: local .zshenv file for zsh
+#
+# This file is sourced on all invocations of the shell. If the -f flag is present or if
+# the NO_RCS option is set within this file, all other initialization files are skipped.
+#
+# This file should contain commands to set the command search path, plus other important
+# environment variables. This file should not contain commands that produce output or
+# assume the shell is attached to a tty.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+# See `/etc/zsh/zshrc`
+# Prevents calling of `compinit` when sourcing `/etc/zsh/zshrc`.
+# `compinit` is expensive and takes long to process. Also, calling it early in
+# initialization process (`/etc/zsh/zshrc`) means no other, additional completions are
+# yet loaded and so `compinit` will have to be called at least one more time.
+# We ensure that rest of our config calls `compinit` at appropriate time.
+skip_global_compinit=1
+
+########################################################################################
+# where will zsh look for startup files
+export ZDOTDIR=${HOME}/.config/zsh
+
+########################################################################################
+# Stuff not necessarily related to configuring shell itself, that we want't to
+# - be set up as early as possible
+# - be set up for all shells
+export LANG=en_US.UTF-8
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+export LESS='-R'
+# Make less not clean the screen and exit if whole contents fit on single screen
+# export LESS='--no-init --quit-if-one-screen -R'
+# Use neovim as man pager
+# export MANPAGER='nvim +Man!'
+
+# XDG Desktop specification variables explicit setup
+# There still exists software that would for example use $XDG_CONFIG_HOME if it is set
+# explicitly but would write into ~/ instead of using implicit default if that variable
+# is not set-up. Setting them up explicitly, should make even more misbehaving software
+# to work better.
+export XDG_DATA_HOME=${HOME}/.local/share
+export XDG_CONFIG_HOME=${HOME}/.config
+export XDG_STATE_HOME=${HOME}/.local/state
+export XDG_CACHE_HOME=${HOME}/.cache
+
+########################################################################################
+# Options for shell itself
+#
+# Options are primarily referred to by name. These names are case insensitive and
+# underscores are ignored.
+#
+# The sense of an option name may be inverted by preceding it with ‘no’, so ‘setopt
+# No_Beep’ is equivalent to ‘unsetopt beep’.
+
+# If a command is issued that can’t be executed as a normal command, and the command is
+# the name of a directory, perform the cd command to that directory.
+setopt NO_AUTO_CD
+
+# Push the old directory onto the stack on cd, without the need to manually issue
+# `pushd` command
+# Allows `cd ~1`, `cd ~3`, etc...
+# See whole pushd stack: `dirs -v`
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after each pushd or popd.
+setopt PUSHD_TO_HOME        # Have pushd with no arguments act like `pushd $HOME`
+
+# If the argument to a cd command (or an implied cd with the AUTO_CD option set) is not
+# a directory, and does not begin with a slash, try to expand the expression as if it
+# were preceded by a
+setopt NO_CDABLE_VARS
+
+# Treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation,
+# etc. (An initial unquoted ‘~’ always produces named directory expansion.)
+setopt NO_EXTENDED_GLOB
+
+# Do not overwrite existing files with > and >>. Use >! and >>! to bypass.
+unsetopt CLOBBER
+
+# setopt ignoreeof           # Don't exit shell on CTRL+D
+setopt INTERACTIVE_COMMENTS  # Allow comments even in interactive shells
+# setopt NO_CORRECT          # Disable autocorrect guesses. Happens when typing a wrong
+                             # command that may look like an existing one.
+setopt LONG_LIST_JOBS        # list jobs in the long format by default
+setopt AUTO_RESUME           # attempt to resume existing job before creating a new process
+setopt NOTIFY                # report status of background jobs immediately
+unsetopt BG_NICE             # don't run all background jobs at a lower priority
+unsetopt HUP                 # don't kill jobs on shell exit
+unsetopt CHECK_JOBS          # don't report on jobs when shell exit
+
+# For wezterm:
+#
+# export LANG=en_US.UTF-8
+#
+# You don't strictly need this collation, but most technical people probably want C
+# collation for sane results
+#
+# export LC_COLLATE=C
+#
+# By default, zsh's line editor doesn't support combining character sequences. Make sure
+# that you have LANG and local configured correctly as shown above, and then tell zsh to
+# enable combining characters:
+#
+# Note that locale on Ubuntu is set by /etc/default/locale
+setopt COMBINING_CHARS
+
+# enable redirect to multiple streams: echo >file1 >file2
+setopt MULTIOS
+
+{{ if not .isRoot }}
+# Prioritize PATH bin directories in $HOME this way:
+#     - $HOME/bin
+#     - $HOME/.local/bin
+#     - system paths
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+# if [ -d "$HOME/bin" ] ; then
+#     export PATH="$HOME/bin:$PATH"
+# fi
+{{- end }}
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path

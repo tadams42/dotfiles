@@ -1,0 +1,7 @@
+# Integrate OpenCode into shell
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+export PATH=$HOME/.opencode/bin:$PATH
+
+{{- end }}

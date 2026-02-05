@@ -1,0 +1,13 @@
+#!/usr/bin/zsh
+
+# export startup_trace="$startup_trace\n/home/foobar/.config/zsh/.zprofile"
+
+# This file is sourced only for login shells (i.e. shells invoked with "-" as the first
+# character of argv[0], and shells invoked with the -l flag.)
+#
+# An interactive shell generally reads from and writes to a user’s terminal.
+#
+# A login shell is a shell where you login. You can recognize a login shell from a ps -f
+# listing, it will have a hyphen at the start of the program name
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin

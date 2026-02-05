@@ -1,0 +1,4 @@
+# Fish-like fast/unobtrusive autosuggestions for zsh.
+zsh-users/zsh-autosuggestions
+
+ohmyzsh/ohmyzsh path:lib/key-bindings.zsh

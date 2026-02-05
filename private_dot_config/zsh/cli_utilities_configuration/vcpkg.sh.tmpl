@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+export VCPKG_ROOT="$HOME/dev/github/vcpkg"
+export PATH="$PATH:$VCPKG_ROOT"
+
+# vcpkg + cmake integration
+# export CMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+
+{{- end }}

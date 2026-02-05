@@ -1,0 +1,67 @@
+README.md
+static/
+.vscode/
+
+# | Pattern         | Effect                                                       |
+# | --------------- | ------------------------------------------------------------ |
+# | `scratchpad/`   | Ignores the folder and everything inside it.                 |
+# |                 |                                                              |
+# |                 | If the directory is ignored, chezmoi won't even look at      |
+# |                 | the files inside.                                            |
+# |                 | You cannot "un-ignore" a file inside a folder if the         |
+# |                 | folder itself is ignored.                                    |
+# |                 |                                                              |
+# | `scratchpad/*`  | Matches everything directly inside scratchpad. Technically   |
+# |                 | keeps the folder tracked (though empty).                     |
+# |                 |                                                              |
+# |                 | If you have `scratchpad/subdir/file.txt`, the subdir is      |
+# |                 | ignored, which effectively ignores the file. But, `file.txt` |
+# |                 | is technically not matched by this expression.               |
+# |                 |                                                              |
+# | `scratchpad/**` | Ignores all files and all nested subdirectories              |
+# |                 | (recursively) inside scratchpad.                             |
+# |                 | Explicitly matches everything at any depth level.            |
+# |                 | If checked against `scratchpad/subdir/file.txt`, `file.txt`  |
+# |                 | is matched.                                                  |
+#
+# The only reason to use `scratchpad/*` or `scratchpad/**` is if you want the directory
+# to exist on the destination, but you want it to be empty.
+scratchpad/
+
+# For a file like `~/.local/share/zsh/.keep`, `chezmoi` needs to know that `.local/`,
+# `share/`, and `zsh/` are all "accessible." If any link in that chain is ignored, the
+# file at the end won't be managed.
+#
+# Note that `!.config/zsh/` (with the trailing slash) un-ignores the entire directory
+# and its contents, whereas `!.config/starship.toml` only un-ignores that specific file.
+
+{{- if .isRemote }}
+
+# 1. on remote machines ignore everything...
+*
+
+# 2. un-ignore some root files
+!.zshenv
+
+# 3. un-ignore paths for `~/.config`: we must "open" each directory level to reach the
+#    final targets
+!.config/
+!.config/zsh/
+!.config/ipython/
+
+# 4. un-ignore specific files inside `~/.config/`
+!.config/starship.toml
+!.config/ripgrep.rc
+
+# 5. "open" paths for `~/.local` and `~/.cache` directories
+!.local/
+!.local/share/
+!.local/share/zsh/
+!.cache/
+!.cache/zsh/
+
+# 6. un-ignore specific files inside `~/.local` and `~/.cache`
+!.local/share/zsh/.keep
+!.cache/zsh/.keep
+
+{{- end }}

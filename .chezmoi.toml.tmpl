@@ -1,0 +1,55 @@
+# Most of chezmoi config make sense only on local, main laptop machine.
+#
+# Some of exported configuration makes zero sense on `root` accounts and only pollutes
+# root's env.
+#
+# For these reasons, we define `data.isMainLaptop` and `data.isRoot`.
+# They can be used in chezmoi templates to emit only parts of config that is necessary.
+#
+# For shell scripts, we even avoid emitting parts of config instead of just blocking it
+# by shell's check for ie. root account:
+#
+# ```sh
+# if [ "$EUID" -ne 0 ] ; then
+#     # ...
+# fi
+# ```
+
+{{- $isLaptop := eq .chezmoi.hostname "angie-ubuntu" }}
+{{- $isRoot := eq (int .chezmoi.uid) 0 }}
+
+[data]
+    isMainLaptop = {{ $isLaptop }}
+    isRemote = {{ not $isLaptop }}
+    isRoot = {{ $isRoot }}
+
+
+{{- if and $isLaptop (not $isRoot) }}
+
+[edit]
+    command = "code"
+    args = ["--wait"]
+
+# [merge]
+# command = "nvim"
+# args = [
+#     "-d",
+#     "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"
+# ]
+
+[merge]
+    command = "bash"
+    args = [
+      "-c",
+      "cp {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base && code --new-window --wait --merge {{ "{{" }} .Destination {{ "}}" }} {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base {{ "{{" }} .Source {{ "}}" }}",
+    ]
+
+# [diff]
+# command = "code"
+# args = ["--wait", "--diff"]
+
+[diff]
+    command = "meld"
+    args = ["--diff", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+
+{{- end }}

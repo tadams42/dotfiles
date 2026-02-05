@@ -1,0 +1,41 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+########################################################################################
+# ripgrep will not look in any predetermined directory for a config file automatically.
+# Instead, you need to set the RIPGREP_CONFIG_PATH environment variable to the file path
+# of your config file.
+#
+# There are only two rules for describing the format of the config file:
+#
+#   1. Every line is a shell argument, after trimming whitespace.
+#   2. Lines starting with # (optionally preceded by any amount of whitespace) are
+#      ignored.
+#
+# In particular, there is no escaping. Each line is given to ripgrep as a single command
+# line argument verbatim.
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep.rc"
+
+########################################################################################
+# Excluding files from rg searches
+#
+# Sometimes you want to search files that are in your `.gitignore`, so it is possible to
+# specify additional ignore rules or overrides in a `.ignore` (application agnostic) or
+# `.rgignore` (ripgrep specific) file.
+#
+# ripgrep treats .ignore files with higher precedence than .gitignore files (and treats
+# .rgignore files with higher precedence than .ignore files).
+#
+# Like .gitignore, a .ignore file can be placed in any directory. Its rules will be
+# processed with respect to the directory it resides in, just like .gitignore.
+
+{{- end }}
+
+########################################################################################
+# Aliases
+alias rg.py='rg --glob "*.py"'
+alias rg.md='rg --glob "*.md"'
+alias rg.yaml='rg --glob "*.yaml"'
+alias rg.json='rg --glob "*.json"'
+alias rg.c='rg --glob "*.c"'

@@ -1,0 +1,25 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# If we don't set this, VSCode will hang deleting stuff from file browser. Probably
+# issue in Electron itself, as stated here:
+# https://jamezrin.name/fix-visual-studio-code-freezing-when-deleting
+#
+# ELECTRON_TRASH
+# Set the trash implementation on Linux. Default is `gio`.
+#
+# Options:
+#     - gvfs-trash
+#     - trash-cli
+#     - kioclient5
+#     - kioclient
+#     - gio
+#
+# gio - Gnome unified I/O utility
+# gvfs-trash - older Gnome I/O utility
+# kioclient - KDE unified I/O
+# kioclient5 - on newer systems just a symlink to kioclient
+export ELECTRON_TRASH=kioclient
+
+{{- end }}
