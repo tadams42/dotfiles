@@ -2,4 +2,9 @@
 
 ################################################################################
 # setup starfish.rs prompt
-eval "$(starship init zsh)"
+if (( $+commands[starship] )); then
+    eval "$(starship init zsh)"
+else
+    echo "WARNING: starship not found, using fallback prompt"
+    PS1='%n@%m %~%# '
+fi

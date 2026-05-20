@@ -4,9 +4,13 @@
 
 # Setup FNM only for non-root accounts
 if [ "$EUID" -ne 0 ] ; then
-    # eval "$(fnm env --use-on-cd --shell zsh --version-file-strategy=recursive --corepack-enabled)"
-    # eval "$(fnm env --shell zsh --version-file-strategy=recursive --corepack-enabled)"
-    eval "$(fnm env --shell zsh --version-file-strategy=recursive)"
+    if (( $+commands[fnm] )); then
+        # eval "$(fnm env --use-on-cd --shell zsh --version-file-strategy=recursive --corepack-enabled)"
+        # eval "$(fnm env --shell zsh --version-file-strategy=recursive --corepack-enabled)"
+        eval "$(fnm env --shell zsh --version-file-strategy=recursive)"
+    else
+        echo "WARNING: fnm not found, skipping Node version manager setup"
+    fi
 fi
 
 {{- end }}

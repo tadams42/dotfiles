@@ -108,6 +108,10 @@ fi
 unset FZF_COLORS
 unset FZF_COLORS_ARRAY
 # initialize `fzf` to handle command history via CTRL+R / ArrowUP keys
-source <(fzf --zsh)
+if (( $+commands[fzf] )); then
+    source <(fzf --zsh)
+else
+    echo "WARNING: fzf not found, skipping fzf history integration"
+fi
 # XOR use `atuin` for the same purpose
 # eval "$(atuin init zsh --disable-up-arrow)"

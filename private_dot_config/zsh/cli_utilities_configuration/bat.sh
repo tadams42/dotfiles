@@ -33,6 +33,11 @@
 #
 # On older systems this might not be enough: `man` command may still output it's own
 # SGR and break `bat` postprocessing
+if ! (( $+commands[bat] )); then
+    echo "WARNING: bat not found, using default man pager"
+    return
+fi
+
 export MANROFFOPT='-c'
 
 # If your man output still shows weird characters like ^H or similar:

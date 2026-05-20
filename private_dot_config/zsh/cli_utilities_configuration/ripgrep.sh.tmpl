@@ -34,8 +34,12 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep.rc"
 
 ########################################################################################
 # Aliases
-alias rg.py='rg --glob "*.py"'
-alias rg.md='rg --glob "*.md"'
-alias rg.yaml='rg --glob "*.yaml"'
-alias rg.json='rg --glob "*.json"'
-alias rg.c='rg --glob "*.c"'
+if (( $+commands[rg] )); then
+    alias rg.py='rg --glob "*.py"'
+    alias rg.md='rg --glob "*.md"'
+    alias rg.yaml='rg --glob "*.yaml"'
+    alias rg.json='rg --glob "*.json"'
+    alias rg.c='rg --glob "*.c"'
+else
+    echo "WARNING: ripgrep (rg) not found, skipping rg aliases"
+fi

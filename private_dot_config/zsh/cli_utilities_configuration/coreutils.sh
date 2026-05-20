@@ -1,12 +1,16 @@
 #!/usr/bin/zsh
 
 # Use `eza` instead of `ls`
-alias ls='eza --color=auto --icons=never --binary'
-alias l='eza --color=auto --icons=never --binary -lah'
-alias ll='eza --color=auto --icons=never --binary -lh'
-alias la='eza --color=auto --icons=never --binary -lah'
-alias lsd='eza --color=auto --icons=never --binary --group-directories-first'
-alias lst='eza --tree --color=auto --icons=never --binary'
+if (( $+commands[eza] )); then
+    alias ls='eza --color=auto --icons=never --binary'
+    alias l='eza --color=auto --icons=never --binary -lah'
+    alias ll='eza --color=auto --icons=never --binary -lh'
+    alias la='eza --color=auto --icons=never --binary -lah'
+    alias lsd='eza --color=auto --icons=never --binary --group-directories-first'
+    alias lst='eza --tree --color=auto --icons=never --binary'
+else
+    echo "WARNING: eza not found, using system ls"
+fi
 
 # always output human readable `df`
 alias df='df -h'
