@@ -14,9 +14,10 @@ unsetopt FLOW_CONTROL       # Disable start/stop characters in shell editor.
 # We rely only on ZSH completers (provided by packages that we install on system).
 # Carapace has it's own completers library, and is blazingly fast. Additionally, it can
 # transparently fall-back to ZSH completer for contexts where it doesn't have it's own.
+#
 # All this sounds great, but last time we'd tried integrating it, some completions
-# stopped working and messing with configuration quickly spiraled into unreadable mess;
-# and it didn't solve the problem.
+# stopped working. Trtying to fix completions' configuration quickly spiraled into
+# unreadable chaos; and it didn't solve the problem.
 #
 # Example scenario that stopped working:
 #
@@ -32,24 +33,11 @@ setup_completions() {
     # it.
     local ZSH_COMP_DUMP_FILE="${HOME}/.cache/zsh/zcompdump"
     autoload -Uz compinit
+
+    # `-d` is used to:
+    #   - tell `compinit` to use "compiled" definitions file
+    #   - tell `compinit` to use specific path for that file
     compinit -d "${ZSH_COMP_DUMP_FILE}"
-
-    if [[ -f /usr/local/bin/aws_completer ]]; then
-        _aws_native_completer() {
-            local -a completions
-
-            export COMP_LINE="$words"
-            export COMP_POINT=$#BUFFER
-
-            completions=($(/usr/local/bin/aws_completer "${words[@]}"))
-
-            unset COMP_LINE
-            unset COMP_POINT
-
-            compadd -a completions
-        }
-        compdef _aws_native_completer aws
-    fi
 
     local COMPLETION_COLORS=${LS_COLORS:-'di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'}
     zstyle ':completion:*:default' list-colors ${(s.:.)COMPLETION_COLORS}

@@ -19,6 +19,7 @@ source $HOME/.config/zsh/shell_configuration/01_colors.zsh
 source $HOME/.config/zsh/shell_configuration/02_antidote.zsh
 source $HOME/.config/zsh/shell_configuration/03_history.zsh
 source $HOME/.config/zsh/shell_configuration/04_prompt.zsh
+source $HOME/.config/zsh/shell_configuration/05_completion.zsh
 
 ########################################################################################
 # Initialization of external tools.
@@ -27,6 +28,7 @@ source $HOME/.config/zsh/shell_configuration/04_prompt.zsh
 # Initialization of these tolls can be slow - so we don't want it to execute in any of
 # other shell initialization files - don't put them into `zshenv`
 ########################################################################################
+source $HOME/.config/zsh/cli_utilities_configuration/aws_cli.sh
 source $HOME/.config/zsh/cli_utilities_configuration/bat.sh
 source $HOME/.config/zsh/cli_utilities_configuration/coreutils.sh
 source $HOME/.config/zsh/cli_utilities_configuration/dev_vars.sh
@@ -41,9 +43,7 @@ source $HOME/.config/zsh/cli_utilities_configuration/rust.sh
 source $HOME/.config/zsh/cli_utilities_configuration/vcpkg.sh
 source $HOME/.config/zsh/cli_utilities_configuration/opencode.sh
 source $HOME/.config/zsh/cli_utilities_configuration/htop.sh
-
-# Finally, setup completion, after all commands and functions had been loaded
-source $HOME/.config/zsh/shell_configuration/05_completion.zsh
+source $HOME/.config/zsh/cli_utilities_configuration/zoxide.sh
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path

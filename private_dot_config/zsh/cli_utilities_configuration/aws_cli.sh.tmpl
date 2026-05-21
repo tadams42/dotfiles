@@ -1,0 +1,47 @@
+#!/usr/bin/zsh
+
+(( $+commands[aws] )) || return
+
+{{- if and (not .isRoot) .isMainLaptop }}
+########################################################################################
+## AWS cli with SSO profile as default
+#
+# Don't export this variable, Python `boto3` will also pick it up, which we ceratinly
+# don't want to!
+#     export AWS_PROFILE=work
+#
+# Use following aliases instead:
+#     alias aws='aws --profile work'
+#     alias awslin='aws sso login --profile work'
+#
+# But these aliases break completion... Using following should fix that:
+aws() {
+    command aws --profile work "$@"
+}
+
+{{- end }}
+
+# We also need to setup custom `_aws_native_completer` since `aws-cli` doesn't
+# provide fixed `_aws` completer definitions file
+#
+# This must be run AFTER `compinit` is called.
+# When first installed, you may have to rebuild your completions cache.
+# Just remove it and let ZSH do the work:
+#
+#     rm -r ~/.cache/zsh/zcompcache/ ~/.cache/zsh/zcompdump
+if [[ -f /usr/local/bin/aws_completer ]]; then
+    _aws_native_completer() {
+        local -a completions
+
+        export COMP_LINE="$words"
+        export COMP_POINT=$#BUFFER
+
+        completions=($(/usr/local/bin/aws_completer "${words[@]}"))
+
+        unset COMP_LINE
+        unset COMP_POINT
+
+        compadd -a completions
+    }
+    compdef _aws_native_completer aws
+fi
