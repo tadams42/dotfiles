@@ -92,6 +92,10 @@ setopt HIST_VERIFY
 # For everything else, it is better to type `CTRL+R` and let `fzf` do it's magic.
 alias history='history -500'
 
+################################################################################
+# setup fzf integration
+(( $+commands[fzf] )) || return
+
 # ZSH arrays:
 #   - space separated stuff becomes array items
 #   - `(j:,:)` - joins array items with `,`
@@ -107,11 +111,6 @@ if [[ ! -v FZF_DEFAULT_OPTS && ! -v FZF_DEFAULT_OPTS_FILE ]]; then
 fi
 unset FZF_COLORS
 unset FZF_COLORS_ARRAY
+
 # initialize `fzf` to handle command history via CTRL+R / ArrowUP keys
-if (( $+commands[fzf] )); then
-    source <(fzf --zsh)
-else
-    echo "WARNING: fzf not found, skipping fzf history integration"
-fi
-# XOR use `atuin` for the same purpose
-# eval "$(atuin init zsh --disable-up-arrow)"
+source <(fzf --zsh)

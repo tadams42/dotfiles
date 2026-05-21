@@ -5,6 +5,7 @@
 if (( $+commands[starship] )); then
     eval "$(starship init zsh)"
 else
-    echo "WARNING: starship not found, using fallback prompt"
-    PS1='%n@%m %~%# '
+   autoload -Uz promptinit
+   promptinit
+   prompt adam1
 fi

@@ -1,5 +1,7 @@
 #!/usr/bin/zsh
 
+(( $+commands[bat] )) || return
+
 # When `bat` is installed from official Ubuntu package it is named `batcat` because of
 # name conflict with other, older and unrelated package. So, we'd need following alias:
 #
@@ -33,10 +35,6 @@
 #
 # On older systems this might not be enough: `man` command may still output it's own
 # SGR and break `bat` postprocessing
-if ! (( $+commands[bat] )); then
-    echo "WARNING: bat not found, using default man pager"
-    return
-fi
 
 export MANROFFOPT='-c'
 

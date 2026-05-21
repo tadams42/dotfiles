@@ -1,5 +1,7 @@
 #!/usr/bin/zsh
 
+(( $+commands[zoxide] )) || return
+
 ################################################################################
 # setup zoxide integration
 #
@@ -8,6 +10,4 @@
 # Just remove it and let ZSH do the work:
 #
 #     rm -r ~/.cache/zsh/zcompcache/ ~/.cache/zsh/zcompdump
-if (( $+commands[zoxide] )); then
-    eval "$(zoxide init zsh)"
-fi
+eval "$(zoxide init zsh)"
