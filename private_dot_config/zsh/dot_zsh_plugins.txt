@@ -2,3 +2,25 @@
 zsh-users/zsh-autosuggestions
 
 ohmyzsh/ohmyzsh path:lib/key-bindings.zsh
+
+# Syntax higlighted shell code in interactive prompt.
+# Limited usability - I don't usually write shell code directly in prompt.
+# zdharma-continuum/fast-syntax-highlighting
+
+# To use it, it requires following to be executed in `zshrc`
+#
+#    bindkey '^[[A' history-substring-search-up # or '\eOA'
+#    bindkey '^[[B' history-substring-search-down # or '\eOB'
+#    HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+#
+# Doesn't work with how my history management is set-up
+# - it doesn't cycle through all commands
+# - often it doesn't find any commands (ie. typing "uvicorn" which has many instances in
+#   my history)
+# zsh-users/zsh-history-substring-search
+
+# - having this set up only on local machine sucks for me.
+# - having this set up on remote machines sucks for others because sometimes we all
+#   access the machine through the same user
+# So in the end I don't set it up.
+# jeffreytse/zsh-vi-mode
