@@ -33,7 +33,14 @@ export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less'
-export LESS='-R'
+# Tell less to treat everything as "raw" and pass to terminal - let terminal handle
+# various escape sequuences and Unicode
+# If we use "-R" instead of "-r", less will still try to sanitize part of the output
+# which may render some Unicode characters as <U+CODE>, even when terminal and the font
+# it is using can render them correctly.
+# NOTE: This also affects other utilities using less, ie. "git diff" and "bat"
+export LESS='-r'
+export LESSCHARSET="utf-8"
 # Make less not clean the screen and exit if whole contents fit on single screen
 # export LESS='--no-init --quit-if-one-screen -R'
 # Use neovim as man pager
