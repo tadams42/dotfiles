@@ -9,12 +9,12 @@
 #    `format`
 # 2. username, hostname, current directory and actual prompt
 format = """
-$fill\
-$all\
-$line_break\
 $username\
 $hostname: \
 $directory\
+$fill\
+$all\
+$line_break\
 $character
 """
 
@@ -66,8 +66,8 @@ format = '[@$hostname]($style)'
 read_only = " 󰌾"
 disabled = false
 # truncation_length = 3
-# truncate_to_repo = true
-truncation_length = 3
+truncate_to_repo = true
+truncation_length = 8
 truncation_symbol = "…/"
 
 
@@ -174,7 +174,8 @@ symbol = "󱇶 "
 symbol = " "
 
 [git_branch]
-symbol = " "
+# symbol = " "
+symbol = "🌿 "
 
 [git_commit]
 tag_symbol = '  '
