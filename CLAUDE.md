@@ -50,7 +50,7 @@ Remote machines receive: `.zshenv`, the full `~/.config/zsh/` directory (all ZSH
 1. `.zshenv` — XDG vars, PATH, ZSH options, `ZDOTDIR`; sourced for all shells including non-interactive
 2. `.zprofile` — login shells only; currently a stub
 3. `.zshrc` — interactive shells; sources everything below in order:
-   - `shell_configuration/01_colors.zsh` — `LS_COLORS` via `dircolors`
+   - `shell_configuration/01_colors.zsh` — `LS_COLORS` via `dircolors` or `vivid`
    - `shell_configuration/02_antidote.zsh` — plugin manager + plugins from `dot_zsh_plugins.txt`
    - `shell_configuration/03_history.zsh` — history options + `fzf` key bindings
    - `shell_configuration/04_prompt.zsh` — starship prompt

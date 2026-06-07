@@ -2,8 +2,9 @@
 
 ################################################################################
 # Setup LS_COLORS env variable
-# Use our own `~/.dircolors` theme if it exists or default one from `/usr/bin/dircolors`
-if (( $+commands[dircolors] )); then
+if (( $+commands[vivid] )); then
+    export LS_COLORS="$(vivid generate tokyonight-night)"
+elif (( $+commands[dircolors] )); then
     [[ -f "$HOME/.dircolors" ]] \
       && source <(dircolors -b "$HOME/.dircolors") \
       || source <(dircolors -b)
