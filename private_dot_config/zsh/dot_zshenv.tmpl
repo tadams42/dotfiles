@@ -88,7 +88,15 @@ setopt NO_CDABLE_VARS
 setopt NO_EXTENDED_GLOB
 
 # Do not overwrite existing files with > and >>. Use >! and >>! to bypass.
-unsetopt CLOBBER
+#
+# Interactive shells only. .zshenv is sourced by *every* zsh invocation, including
+# non-interactive ones used by scripts, editors and agent tooling; those don't have a
+# human to notice the "file exists" error, and in a compound command the rest still runs,
+# masking the failed write. Keep the typo guard where it helps, drop it where it silently
+# breaks automation.
+if [[ -o interactive ]]; then
+    unsetopt CLOBBER
+fi
 
 # setopt ignoreeof           # Don't exit shell on CTRL+D
 setopt INTERACTIVE_COMMENTS  # Allow comments even in interactive shells
