@@ -1,0 +1,39 @@
+#!/usr/bin/zsh
+
+# Must be last thing that initializes.
+#
+# Crazy way this integrates:
+#    On each shell starutp:
+#        starts `is` process
+#            which starts new shell process
+#
+# Needs NodeJS and in combination with stupid startup - probably don't want in on remote
+# machines.
+#
+# To install:
+#
+# ````
+# fnm install v26.7.0
+# fnm default v26.7.0
+# npm install -g npm
+# npm install -g @microsoft/inshellisense
+# is init
+# ````
+#
+# Looks pretty, but:
+#    - no eza
+#    - no aws CLI
+#    - trying `--some-arg` fails most of the time
+#
+# Also, LOL:
+#
+# > Specs for the az, gcloud, & aws CLIs are not supported in inshellisense due to their
+# > large size.
+#
+# Verdict: keep as a curiosity, don't use. Our completions has far more content
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+[[ -f ~/.inshellisense/init/zsh/init.zsh ]] && source ~/.inshellisense/init/zsh/init.zsh
+
+{{- end }}
