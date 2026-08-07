@@ -30,26 +30,30 @@
     command = "code"
     args = ["--wait"]
 
-# [merge]
-# command = "nvim"
-# args = [
-#     "-d",
-#     "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"
-# ]
+[diff]
+    pager = "delta"
+
+    # command = "meld"
+    # args = ["--diff", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+
+    # command = "code"
+    # args = ["--wait", "--diff"]
 
 [merge]
-    command = "bash"
+    # To integrate neovim:
+    command = "nvim"
     args = [
-      "-c",
-      "cp {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base && code --new-window --wait --merge {{ "{{" }} .Destination {{ "}}" }} {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base {{ "{{" }} .Source {{ "}}" }}",
+        "-d",
+        "{{ "{{" }} .Destination {{ "}}" }}",
+        "{{ "{{" }} .Source {{ "}}" }}",
+        "{{ "{{" }} .Target {{ "}}" }}"
     ]
 
-# [diff]
-# command = "code"
-# args = ["--wait", "--diff"]
-
-[diff]
-    command = "meld"
-    args = ["--diff", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+    # To integrate VSCode:
+    # command = "bash"
+    # args = [
+    #   "-c",
+    #   "cp {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base && code --new-window --wait --merge {{ "{{" }} .Destination {{ "}}" }} {{ "{{" }} .Target {{ "}}" }} {{ "{{" }} .Target {{ "}}" }}.base {{ "{{" }} .Source {{ "}}" }}",
+    # ]
 
 {{- end }}
