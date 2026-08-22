@@ -96,21 +96,17 @@ alias history='history -500'
 # setup fzf integration
 (( $+commands[fzf] )) || return
 
-# ZSH arrays:
-#   - space separated stuff becomes array items
-#   - `(j:,:)` - joins array items with `,`
-FZF_COLORS_ARRAY=(
-  --color=dark fg:-1 bg:-1 hl:#c678dd fg+:#ffffff bg+:#4b5263 hl+:#d858fe info:#98c379
-  prompt:#61afef pointer:#be5046 marker:#e5c07b spinner:#61afef header:#61afef
-)
-FZF_COLORS="${(j:,:)FZF_COLORS_ARRAY}"
 # see `ENVIRONMENT VARIABLES` in `man fzf`
-if [[ ! -v FZF_DEFAULT_OPTS && ! -v FZF_DEFAULT_OPTS_FILE ]]; then
-    # If there are no external fzf configs, we use our own color theme
-    export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} ${FZF_COLORS}"
-fi
-unset FZF_COLORS
-unset FZF_COLORS_ARRAY
-
-# initialize `fzf` to handle command history via CTRL+R / ArrowUP keys
+# copy theme from https://junegunn.github.io/fzf/color-themes
+export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
+# initialize `fzf` key bindings and completion. Despite living in this file, this binds
+# rather more than just history:
+#
+#   CTRL+R    fuzzy-search command history
+#   CTRL+T    fuzzy-search files/dirs below $PWD, paste selection onto the line
+#   ALT+C     fuzzy-search dirs below $PWD, `cd` into the selection
+#   TAB       fuzzy completion (only for `**` triggers, normal completion otherwise)
+#
+# Note that ArrowUP is *not* fzf - that is `up-line-or-beginning-search`, bound by
+# `ohmyzsh path:lib/key-bindings.zsh` from `.zsh_plugins.txt`.
 source <(fzf --zsh)
