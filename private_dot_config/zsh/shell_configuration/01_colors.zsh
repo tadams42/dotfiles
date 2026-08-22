@@ -3,7 +3,7 @@
 ################################################################################
 # Setup LS_COLORS env variable
 if (( $+commands[vivid] )); then
-    export LS_COLORS="$(vivid generate tokyonight-night)"
+    export LS_COLORS="$(vivid generate catppuccin-mocha)"
 elif (( $+commands[dircolors] )); then
     [[ -f "$HOME/.dircolors" ]] \
       && source <(dircolors -b "$HOME/.dircolors") \
