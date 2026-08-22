@@ -2,3 +2,5 @@
 --color=hl+:#f38ba8,info:#cba6f7,prompt:#cba6f7,pointer:#f5e0dc
 --color=marker:#b4befe,spinner:#f5e0dc,header:#f38ba8,border:#585b70
 --color=gutter:#313244
+# CTRL+R runs with `--multi`, so Tab-marked lines need to be distinct from `bg+`
+--color=selected-bg:#45475a
