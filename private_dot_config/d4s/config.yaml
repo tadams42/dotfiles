@@ -1,0 +1,53 @@
+d4s:
+  # Refresh interval in seconds. Minimum 2.0 — values below are capped. Default: 2.0
+  refreshRate: 2
+  # Docker API server request timeout. Default: 120s
+  apiServerTimeout: 15s
+  # Disable all modification commands (delete, kill, restart, etc.). Default: false
+  readOnly: false
+  # Default Docker context for d4s when --context, DOCKER_HOST, and DOCKER_CONTEXT are not set. Default: ""
+  defaultContext: ""
+  # Default view on startup (containers, images, volumes, networks, services, nodes, compose, aliases, secrets, configs, stacks, tasks, contexts, plugins). Default: "" (containers)
+  defaultView: ""
+  # When true, Ctrl+C won't exit — use :quit instead. Default: false
+  noExitOnCtrlC: false
+  # Skip checking GitHub for new releases on startup. Default: false
+  skipLatestRevCheck: false
+
+  # Optional visible columns and their order for each resource view.
+  # Omit a view to keep its default columns.
+  views:
+    containers:
+      columns: [ID, NAME, STATUS, CPU, MEM, AGE]
+
+  # UI settings
+  ui:
+    # Enable mouse support. Default: false
+    enableMouse: false
+    # Hide the entire header bar (stats + shortcuts + logo). Default: false
+    headless: false
+    # Hide the D4S ASCII logo from the header. Default: false
+    logoless: false
+    # Hide breadcrumb trail in the status bar. Default: false
+    crumbsless: false
+    # Invert all theme colors (dark↔light), preserving hue. Default: false
+    invert: false
+    # Skin name, loads from $XDG_DATA_HOME/d4s/skins/<name>.yaml. Default: "default" (builtin: default, dracula, monokai, nord, gruvbox, tokyonight)
+    skin: "tokyonight"
+
+  # Log viewer settings
+  logger:
+    # Number of tail lines to fetch initially. Default: 100
+    tail: 200
+    # How far back to go in the log timeline (seconds). -1 = tail mode. Default: -1
+    sinceSeconds: -1
+    # Enable line wrapping in log viewer. Default: false
+    textWrap: false
+    # Disable auto-scroll when new log lines arrive. Default: false
+    disableAutoscroll: false
+    # Show timestamps on each log line. Default: false
+    showTime: false
+
+  # Shell pod used for volume browsing and secret decoding
+  shellPod:
+    image: ghcr.io/jr-k/nget:latest

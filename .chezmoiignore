@@ -57,6 +57,8 @@ scratchpad/
 !.config/
 !.config/bat/
 !.config/bat/**
+!.config/d4s/
+!.config/d4s/**
 !.config/dust/
 !.config/dust/**
 !.config/erdtree/
