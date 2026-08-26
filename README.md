@@ -35,3 +35,16 @@ or, use `VS Code` to edit `$HOME/.local/share/chezmoi/` and then:
 ```sh
 chezmoi apply
 ```
+
+## Note on remote machines
+
+The whole repo is deployed only on one host - my laptop. And this is determined by
+hardcoded `hostname`.
+
+On any other host ("remote"), only smaller subset of files are deployed via `chezmoi apply`.
+
+This is intentional. On some VMs where I deploy this, I work with other people and we
+all share single user account on these machines. Modifying `zsh` on these hosts is
+kind-of-sort-of OK. Modifying config for most of other tools is not. So I don't do it.
+
+Still haven't found better way to enforce this behavior, besides hardcoded `hostname`.
