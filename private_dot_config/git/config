@@ -1,0 +1,131 @@
+[core]
+  editor = nvim
+  quotepath = false
+  pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+  # To work with `delta`
+  conflictStyle = zdiff3
+
+[user]
+  # email = tomislav.adamic@gmail.com
+	email = tomislav.adamic@tellus.hr
+	name = Tomislav Adamic
+
+[pull]
+  rebase = merges
+
+[pager]
+  branch = false
+
+[init]
+	defaultBranch = main
+
+[log]
+  abbrevCommit = true
+  # date = iso-strict
+  date = human
+
+
+
+[alias]
+  serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+  df = diff --ignore-all-space
+  quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+  pf = push --force
+  pt = push --tags
+
+  # Difftastic aliases, so `git dlog` is `git log` with difftastic and so on.
+  dlog = -c diff.external=difft log --ext-diff
+  dshow = -c diff.external=difft show --ext-diff
+  ddiff = -c diff.external=difft diff
+
+
+
+# [diff]
+#   # Which tool is used by `git-difftool`.
+#   # `diftool` is tool used to show changes.
+#   # Overrides the value configured in `merge.tool`.
+#   # If tool is not in list of officialy supported ones, then it requires
+#   # corresponding `difftool.<tool>.cmd` config entry.
+#   #
+#   # Some tools that are officially supported:
+#   #
+#   # - kdiff3
+#   # - meld
+#   # - nvimdiff
+#   # - vscode
+#   #
+#   # Note that git will re-open diftool once for each changed file
+#   # which makes it practically unusable: it is better to open the
+#   # repo in the tool itself, and browse changes there.
+#   # tool = meld
+#   # same as `tool` but exected when `-g/--gui` flag is specified
+#   # guitool = meld
+
+
+[merge]
+    conflictStyle = "diff3"
+
+[merge "mergiraf"]
+    name = mergiraf
+    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+
+
+# [merge]
+#   # Which tool is used by `git-mergetool`.
+#   # `mergetool` is tool used for merge conflict resolution
+#   # If tool is not in list of officialy supported ones, then it requires
+#   # corresponding `mergetool.<tool>.cmd` config entry.
+#   #
+#   # Some tools that are officially supported:
+#   #
+#   # - kdiff3
+#   # - meld
+#   # - nvimdiff
+#   # - vscode
+#   tool = vscode
+#   # same as `tool` but exected when `-g/--gui` flag is specified
+#   guitool = vscode
+
+# [mergetool]
+#   # Set true to use the merge.guitool by default (equivalent to specifying the --gui
+#   # argument), or auto to select merge.guitool or merge.tool depending on the presence
+#   # of a DISPLAY environment variable value.
+#   guiDefault = true
+
+# [mergetool "vscode"]
+# 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+
+
+# [interactive]
+#   When an interactive command (such as git add --patch) shows a colorized diff, git
+#   will pipe the diff through the shell command defined by this configuration variable.
+#   The command may mark up the diff further for human consumption, provided that it
+#   retains a one-to-one correspondence with the lines in the original diff. Defaults to
+#   disabled (no filtering).
+#   diffFilter = ""
+
+
+
+# [format]
+#   pretty = fuller
+#   pretty = full
+
+
+
+[maintenance]
+  repo = /home/tomislav/dev/narro-api
+  repo = /home/tomislav/dev/dabar_backend
+  repo = /home/tomislav/dev/seveno_pyutil
+
+[maintenance "gc"]
+  enabled = true

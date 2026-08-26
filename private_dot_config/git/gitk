@@ -1,0 +1,70 @@
+set autocopy 0
+set autoselect 1
+set autosellen 40
+set bgcolor #282a36
+set circlecolors {#282a36 #bd93f9 #44475a #bd93f9 #bd93f9}
+set circleoutlinecolor #44475a
+set cmitmode patch
+set colors {#50fa7b #ff5555 #bd93f9 #ff79c6 #f8f8f8 #ffb86c #ffb86c}
+set currentsearchhitbgcolor #ffb86c
+set datetimeformat {%Y-%m-%d %H:%M:%S}
+set diffbgcolors {"#fff3f3" "#f0fff0"}
+set diffcolors {#ff5555 #50fa7b #bd93f9}
+set diffcontext 9
+set extdifftool meld
+set fgcolor #f8f8f2
+set filesepbgcolor #44475a
+set filesepfgcolor #f8f8f2
+set findmergefiles 0
+set foundbgcolor #f1fa8c
+set headbgcolor #50fa7b
+set headfgcolor black
+set headoutlinecolor #f8f8f2
+set hideremotes 0
+set indexcirclecolor #50fa7b
+set kscroll 3
+set limitdiffs 1
+set linehoverbgcolor #f1fa8c
+set linehoverfgcolor black
+set linehoveroutlinecolor #f8f8f2
+set linkfgcolor #bd93f9
+set mainfont {{Fira Code} 10}
+set mainheadcirclecolor #f1fa8c
+set markbgcolor #282a36
+set maxgraphpct 50
+set maxrefs 20
+set maxwidth 16
+set mergecolors {#ff5555 #bd93f9 #50fa7b #bd93f9 #ffb86c #8be9fd #ff79c6 #f1fa8c #8be9fd #ff79c6 #8be9fd #ffb86c #8be9fd #50fa7b #ffb86c #ff79c6}
+set perfile_attrs 0
+set reflinecolor #f8f8f2
+set refstohide {}
+set remotebgcolor #ffb86c
+set selectbgcolor #44475a
+set showlocalchanges 1
+set showneartags 1
+set sortrefsbytype 1
+set tabstop 4
+set tagbgcolor #f1fa8c
+set tagfgcolor black
+set tagoutlinecolor #f8f8f2
+set textfont {{Fira Code} 10}
+set theme classic
+set themeloader {}
+set uicolor #44475a
+set uifgcolor #f8f8f2
+set uifgdisabledcolor #6272a4
+set uifont {{Fira Code} 9}
+set visiblerefs {"master"}
+set web_browser xdg-open
+set workingfilescirclecolor #ff5555
+set wrapcomment none
+set wrapdefault none
+set geometry(main) 3840x2088+0+35
+set geometry(state) normal
+set geometry(topwidth) 3840
+set geometry(topheight) 260
+set geometry(pwsash0) "2798 1"
+set geometry(pwsash1) "3404 1"
+set geometry(botwidth) 2982
+set geometry(botheight) 1816
+set permviews {}

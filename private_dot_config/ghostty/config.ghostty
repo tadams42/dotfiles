@@ -1,0 +1,14 @@
+font-family = "Hack Nerd Font Mono"
+
+# theme = Breeze
+# theme = Monokai Classic
+# theme = Monokai Pro
+# theme = TokyoNight Night
+theme = Catppuccin Mocha
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration = zsh
+shell-integration-features = no-cursor
+
+mouse-hide-while-typing = true

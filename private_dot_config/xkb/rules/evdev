@@ -1,0 +1,5 @@
+// Mandatory to extend the
+! include %S/evdev
+
+// ! layout  variant = symbols
+//   g915tkl us_intl_hr = +g915tkl(us_intl_hr)

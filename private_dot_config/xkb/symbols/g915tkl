@@ -1,0 +1,97 @@
+// Logitech G915 TKL US-INTL Croatian digraphs
+partial alphanumeric_keys
+xkb_symbols "us_intl_hr" {
+    name[Group1]="G915 TKL Croatian US intl";
+
+    key <ESC>  { [ Escape ] };
+    key <FK01> { [ F1 ] };
+    key <FK02> { [ F2 ] };
+    key <FK03> { [ F3 ] };
+    key <FK04> { [ F4 ] };
+    key <FK05> { [ F5 ] };
+    key <FK06> { [ F6 ] };
+    key <FK07> { [ F7 ] };
+    key <FK08> { [ F8 ] };
+    key <FK09> { [ F9 ] };
+    key <FK10> { [ F10 ] };
+    key <FK11> { [ F11 ] };
+    key <FK12> { [ F12 ] };
+
+    key <TLDE> { [ grave, asciitilde ] };
+    key <AE01> { [ 1, exclam ] };
+    key <AE02> { [ 2, at, quotedbl, U00B2 ] }; // 2 @ ²
+    key <AE03> { [ 3, numbersign, U00B3 ] }; // 3 # ³
+    key <AE04> { [ 4, dollar, U00A3 ] }; // 4 $ £
+    key <AE05> { [ 5, percent, EuroSign ] };
+    key <AE06> { [ 6, asciicircum, ampersand ] };
+    key <AE07> { [ 7, ampersand, slash ] };
+    key <AE08> { [ 8, asterisk, parenleft ] };
+    key <AE09> { [ 9, parenleft, parenright ] };
+    key <AE10> { [ 0, parenright, equal ] };
+    key <AE11> { [ minus, underscore, question, grave ] }; // - _ ? `
+    key <AE12> { [ equal, plus, U00D7, U00F7 ] }; // = + × ÷
+    key <BKSP> { [ BackSpace, BackSpace ] };
+
+    key <TAB>  { [ Tab, ISO_Left_Tab ] };
+    key <AD01> { [ q, Q, backslash ] };
+    key <AD02> { [ w, W, bar ] };
+    key <AD03> { [ e, E, EuroSign ] };
+    key <AD04> { [ r, R, registered ] };
+    key <AD05> { [ t, T, trademark ] };
+    key <AD06> { [ y, Y, z, Z ] };
+    key <AD07> { [ u, U ] };
+    key <AD08> { [ i, I ] };
+    key <AD09> { [ o, O ] };
+    key <AD10> { [ p, P ] };
+    key <AD11> { [ bracketleft, braceleft, scaron, Scaron ] };
+    key <AD12> { [ bracketright, braceright, dstroke, Dstroke ] };
+
+    key <CAPS> { [ Caps_Lock ] };
+    key <AC01> { [ a, A ] };
+    key <AC02> { [ s, S ] };
+    key <AC03> { [ d, D ] };
+    key <AC04> { [ f, F ] };
+    key <AC05> { [ g, G ] };
+    key <AC06> { [ h, H ] };
+    key <AC07> { [ j, J ] };
+    key <AC08> { [ k, K ] };
+    key <AC09> { [ l, L ] };
+    key <AC10> { [ semicolon, colon, ccaron, Ccaron ] };
+    key <AC11> { [ apostrophe, quotedbl, cacute, Cacute ] };
+    key <BKSL> { [ backslash, bar, zcaron, Zcaron  ] };
+
+    key <LFSH> { [ Shift_L ] };
+    key <AB01> { [ z, Z, y, Y ] };
+    key <AB02> { [ x, X ] };
+    key <AB03> { [ c, C, copyright, U00A2 ] }; // c C © ¢
+    key <AB04> { [ v, V, at ] };
+    key <AB05> { [ b, B, braceleft ] };
+    key <AB06> { [ n, N, braceright ] };
+    key <AB07> { [ m, M, U03BC, U039C ] };
+    key <AB08> { [ comma, less, semicolon ] };
+    key <AB09> { [ period, greater, colon ] };
+    key <AB10> { [ slash, question, U203E, minus ] };
+    key <RTSH> { [ Shift_R ] };
+
+    key <LCTL> { [ Control_L ] };
+    key <LWIN> { [ Super_L ] };
+    key <LALT> { [ Alt_L ] };
+    key <SPCE> { [ space ] };
+    key <RALT> { [ ISO_Level3_Shift ] };
+    key <MENU> { [ Menu ] };
+    key <RCTL> { [ Control_R ] };
+
+    key <UP>   { [ Up ] };
+    key <LEFT> { [ Left ] };
+    key <DOWN> { [ Down ] };
+    key <RGHT> { [ Right ] };
+
+    key  <INS> {[  Insert  ]};
+    key <DELE> {[  Delete  ]};
+    key <HOME> {[  Home    ]};
+    key  <END> {[  End     ]};
+    key <PGUP> {[  Prior   ]};
+    key <PGDN> {[  Next    ]};
+
+    include "level3(ralt_switch)"
+};

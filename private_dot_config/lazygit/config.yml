@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
+git:
+  # Array of diff renderers. Each entry has the following format:
+  #
+  #   # The type of diff renderer. One of: 'stdinFilter' (default) | 'extDiff'
+  #   # | 'rawGit'
+  #   type: "stdinFilter"
+  #
+  #   # A name for the diff renderer, shown in the notification when cycling
+  #   # renderers. If not set, the name is derived from the first word of the
+  #   # renderer command.
+  #   name: ""
+  #
+  #   # Value of the --color arg in the git diff command. Only used for type
+  #   # 'stdinFilter'. Some renderers want this to be set to 'always' and some
+  #   # want it set to 'never'.
+  #   colorArg: "always"
+  #
+  #   # The command to use for rendering diffs. This is either a stdinFilter or
+  #   # an external diff command, depending on the type field; not applicable if
+  #   # the type is 'rawGit'.
+  #   # e.g.
+  #   # diff-so-fancy
+  #   # delta --dark --paging=never
+  #   # ydiff -p cat
+  #   # difft --color=always
+  #   command: ""
+  #
+  #   # Extra arguments (array of strings) passed to the git command. Only
+  #   # applicable if the type is 'rawGit'.
+  #   args: []
+  #
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_DiffRenderers.md
+  # for more information.
+  diffRenderers:
+    - name: default
+      type: rawGit # git's default diff
+    - name: delta
+      colorArg: always
+      command: delta --dark --paging=never
+    - name: color-words
+      type: rawGit
+      args: ["--color-words"]
+    # - name: difftastic
+    #   type: extDiff
+    #   command: difft --color=always --context={{diffContext}}
+
+  # If true, parse emoji strings in commit messages e.g. render :rocket: as 🚀
+  # (This should really be under 'gui', not 'git')
+  parseEmoji: true
