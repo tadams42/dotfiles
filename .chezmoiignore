@@ -55,10 +55,22 @@ scratchpad/
 # 3. un-ignore paths for `~/.config`: we must "open" each directory level to reach the
 #    final targets, and `dir/**` to reach everything below it
 !.config/
-!.config/zsh/
-!.config/zsh/**
+!.config/bat/
+!.config/bat/**
+!.config/dust/
+!.config/dust/**
+!.config/erdtree/
+!.config/erdtree/**
+!.config/eza/
+!.config/eza/**
+!.config/fzf/
+!.config/fzf/**
 !.config/ipython/
 !.config/ipython/**
+!.config/yazi/
+!.config/yazi/**
+!.config/zsh/
+!.config/zsh/**
 
 # 4. un-ignore specific files inside `~/.config/`
 !.config/starship.toml
