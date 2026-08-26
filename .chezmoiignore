@@ -33,22 +33,32 @@ scratchpad/
 # `share/`, and `zsh/` are all "accessible." If any link in that chain is ignored, the
 # file at the end won't be managed.
 #
-# Note that `!.config/zsh/` (with the trailing slash) un-ignores the entire directory
-# and its contents, whereas `!.config/starship.toml` only un-ignores that specific file.
+# Two matching rules make or break the whitelist below:
+#
+# 1. Patterns are matched with doublestar semantics against the *target* path, and `*`
+#    does not cross `/`. A bare `*` therefore matches only top-level names (`.zshenv`,
+#    `.config`, `.local`, `.cache`) — it does NOT match `.config/bat`. Use `**` to
+#    ignore everything at every depth.
+#
+# 2. Ignoring a directory is recursive, but un-ignoring one is NOT. `!.config/zsh/`
+#    opens the directory node only; without `!.config/zsh/**` the directory is deployed
+#    empty. `!.config/starship.toml` un-ignores exactly that one file.
 
 {{- if .isRemote }}
 
-# 1. on remote machines ignore everything...
-*
+# 1. on remote machines ignore everything, at every depth...
+**
 
 # 2. un-ignore some root files
 !.zshenv
 
 # 3. un-ignore paths for `~/.config`: we must "open" each directory level to reach the
-#    final targets
+#    final targets, and `dir/**` to reach everything below it
 !.config/
 !.config/zsh/
+!.config/zsh/**
 !.config/ipython/
+!.config/ipython/**
 
 # 4. un-ignore specific files inside `~/.config/`
 !.config/starship.toml
