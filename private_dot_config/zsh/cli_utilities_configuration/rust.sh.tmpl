@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) }}
+{{- if and (not .isRoot) .isMainLaptop }}
 
 # Don't rely on cargo to setup $PATH because it is doing it wrong - it uses
 # hardcoded $HOME/.cargo instead of $CARGO_HOME/

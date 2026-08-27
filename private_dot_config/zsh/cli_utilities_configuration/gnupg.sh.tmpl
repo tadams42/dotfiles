@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# https://gnupg.org/documentation/manuals/gnupg/GPG-Configuration.html
+export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
+
+{{- end }}

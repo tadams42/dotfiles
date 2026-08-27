@@ -1,7 +1,16 @@
 #!/usr/bin/zsh
 
+(( $+commands[docker] )) || return
+
 {{- if not .isRoot }}
 
 export DOCKER_BUILDKIT=1
+
+{{- end }}
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# https://docs.docker.com/reference/cli/docker/#change-the-docker-directory
+export DOCKER_CONFIG=$HOME/.config/docker
 
 {{- end }}

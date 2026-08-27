@@ -35,14 +35,16 @@ source $HOME/.config/zsh/cli_utilities_configuration/dev_vars.sh
 source $HOME/.config/zsh/cli_utilities_configuration/docker.sh
 source $HOME/.config/zsh/cli_utilities_configuration/electron.sh
 source $HOME/.config/zsh/cli_utilities_configuration/fnm.sh
+source $HOME/.config/zsh/cli_utilities_configuration/gnupg.sh
 source $HOME/.config/zsh/cli_utilities_configuration/grep.sh
+source $HOME/.config/zsh/cli_utilities_configuration/htop.sh
 source $HOME/.config/zsh/cli_utilities_configuration/isodate.plugin.zsh
+source $HOME/.config/zsh/cli_utilities_configuration/psql.sh
 source $HOME/.config/zsh/cli_utilities_configuration/python.sh
 source $HOME/.config/zsh/cli_utilities_configuration/ripgrep.sh
 source $HOME/.config/zsh/cli_utilities_configuration/rust.sh
+source $HOME/.config/zsh/cli_utilities_configuration/vagrant.sh
 source $HOME/.config/zsh/cli_utilities_configuration/vcpkg.sh
-source $HOME/.config/zsh/cli_utilities_configuration/opencode.sh
-source $HOME/.config/zsh/cli_utilities_configuration/htop.sh
 source $HOME/.config/zsh/cli_utilities_configuration/zoxide.sh
 
 # Ensure path arrays do not contain duplicates.

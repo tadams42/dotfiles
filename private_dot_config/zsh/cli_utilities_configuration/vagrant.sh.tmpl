@@ -1,0 +1,8 @@
+#!/usr/bin/zsh
+
+{{- if and (not .isRoot) .isMainLaptop }}
+
+# https://developer.hashicorp.com/vagrant/docs/other/environmental-variables#vagrant_home
+export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant.d"
+
+{{- end }}
