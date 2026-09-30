@@ -1,0 +1,191 @@
+-- -------------------------------------------------------------------------------------
+-- Old vim options below need review in context of neovim
+-- -------------------------------------------------------------------------------------
+--
+-- no longer needed, we'd added `CARGO_HOME/bin` to our shell's env
+-- vim.env.PATH = table.concat({
+--   "/home/tomislav/.local/share/cargo/bin",
+--   vim.env.PATH,
+-- }, ":")
+--
+-- vim.opt.hlsearch = true -- higlight all search matches
+-- vim.opt.incsearch = true -- incremental search
+-- vim.opt.scrolloff = 5 -- Minimal number of screen lines to keep above and below the cursor.
+--
+-- When a bracket is inserted, briefly jump to the matching one.
+-- vim.opt.showmatch = true
+--
+-- Copy indent from current line when starting a new line.
+-- vim.opt.autoindent = true
+-- Influences the working of <BS>, <Del>, CTRL-W and CTRL-U in Insert mode.
+-- This is a list of items, separated by commas. Each item allows actvate way to backspace
+-- over something:
+--   indent: allow backspacing over autoindent
+--   eol: allow backspacing over line breaks (join lines)
+--   start: allow backspacing over the start of insert; CTRL-W and CTRL-U stop once at the start of insert.
+--   nostop like start, except CTRL-W and CTRL-U do not stop at the start of insert.
+-- vim.opt.backspace = "indent,eol,start"
+--
+-- These control automatic line breaks in insert mode and/or softwrapping
+--
+-- Long lines are broken if you enter a non-white character after the margin. The
+-- situations where a line will be broken can be restricted by adding characters to the
+-- 'formatoptions' option.
+--
+-- The 'textwidth' option can be used to automatically break a line before it gets too
+-- long.  Set the 'textwidth' option to the desired maximum line length.  If you then
+-- type more characters (not spaces or tabs), the last word will be put on a new line
+-- (unless it is the only word on the line).  If you set 'textwidth' to 0, this feature
+-- is disabled.
+-- default: 0
+-- vim.opt.textwidth = 80
+--
+-- Number of characters from the right window border where wrapping starts.  When typing
+-- text beyond this limit, an <EOL> will be inserted and inserting continues on the next
+-- line. Options that add a margin, such as 'number' and 'foldcolumn', cause the text
+-- width to be further reduced.
+-- The 'wrapmargin' option does almost the same.  The difference is that 'textwidth' has
+-- a fixed width while 'wrapmargin' depends on the width of the screen.  When using
+-- 'wrapmargin' this is equal to using 'textwidth' with a value equal to (columns -
+-- 'wrapmargin'), where columns is the width of the screen.
+-- When 'textwidth' and 'wrapmargin' are both set, 'textwidth' is used.
+-- default: 0
+-- vim.opt.wrapmargin = 80
+--
+-- If you don't really want to break the line, but view the line wrapped at a convenient
+-- place, see the 'linebreak' option.
+-- If on, Vim will wrap long lines at a character in 'breakat' rather than at the last
+-- character that fits on the screen.  Unlike 'wrapmargin' and 'textwidth', this does
+-- not insert <EOL>s in the file, it only affects the way the file is displayed, not its
+-- contents.
+-- default: false
+-- vim.opt.linebreak = true
+--
+-- This option changes how text is displayed.  It doesn't change the text in the buffer,
+-- see 'textwidth' for that.
+-- When on, lines longer than the width of the window will wrap and displaying continues
+-- on the next line.  When off lines will not wrap and only part of long lines will be
+-- displayed.  When the cursor is moved to a part that is not shown, the screen will
+-- scroll horizontally.
+-- The line will be broken in the middle of a word if necessary.  See 'linebreak' to get
+-- the break at a word boundary.
+-- default: true
+-- vim.opt.wrap = true
+--
+-- This is a sequence of letters which describes how automatic formatting is to be done.
+-- Long lines are broken if you enter a non-white character after the margin. The
+-- situations where a line will be broken can be restricted by adding characters to the
+-- 'formatoptions' option:
+-- huge table in manual describes all possible options for this
+-- https://neovim.io/doc/user/change.html#fo-table
+-- default: "tcqj"
+-- vim.opt.formatoptions = "tcqj"
+--
+-- Number of spaces that a <Tab> in the file counts for.
+-- There are five main ways to use tabs in Vim:
+--    1. Always keep 'tabstop' at 8, set 'softtabstop' and 'shiftwidth' to 4
+--       (or 3 or whatever you prefer) and use 'noexpandtab'.  Then Vim
+--       will use a mix of tabs and spaces, but typing <Tab> and <BS> will
+--       behave like a tab appears every 4 (or 3) characters.
+--       This is the recommended way, the file will look the same with other
+--       tools and when listing it in a terminal.
+--    2. Set 'softtabstop' and 'shiftwidth' to whatever you prefer and use
+--       'expandtab'.  This way you will always insert spaces.  The
+--       formatting will never be messed up when 'tabstop' is changed (leave
+--       it at 8 just in case).  The file will be a bit larger.
+--       You do need to check if no Tabs exist in the file.  You can get rid
+--       of them by first setting 'expandtab' and using %retab!, making
+--       sure the value of 'tabstop' is set correctly.
+--    3. Set 'tabstop' and 'shiftwidth' to whatever you prefer and use
+--       'expandtab'.  This way you will always insert spaces.  The
+--       formatting will never be messed up when 'tabstop' is changed.
+--       You do need to check if no Tabs exist in the file, just like in the
+--       item just above.
+--    4. Set 'tabstop' and 'shiftwidth' to whatever you prefer and use a
+--       modeline to set these values when editing the file again.  Only
+--       works when using Vim to edit the file, other tools assume a tabstop
+--       is worth 8 spaces.
+--    5. Always set 'tabstop' and 'shiftwidth' to the same value, and
+--       'noexpandtab'.  This should then work (for initial indents only)
+--       for any tabstop setting that people use.  It might be nice to have
+--       tabs after the first non-blank inserted as spaces if you do this
+--       though.  Otherwise aligned comments will be wrong when 'tabstop' is
+--       changed.
+-- vim.opt.tabstop = 2 -- Number of spaces that a <Tab> in the file counts for.
+-- vim.opt.smartindent = false -- Don't use smart indenting (which only works for C-like languages)
+-- vim.opt.expandtab = true -- use spaces instead of tabs in insert mode
+-- Number of spaces that a <Tab> counts for while performing editing operations, like
+-- inserting a <Tab> or using <BS>.  It "feels" like <Tab>s are being inserted, while in
+-- fact a mix of spaces and <Tab>s is used.
+-- vim.opt.softtabstop = 2
+-- Number of spaces to use for each step of (auto)indent.  Used for 'cindent', >>, <<,
+-- etc. When zero the 'tabstop' value will be used.
+-- vim.opt.shiftwidth = 2
+-- When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'.
+-- 'tabstop' or 'softtabstop' is used in other places.  A <BS> will delete a
+-- 'shiftwidth' worth of space at the start of the line.
+-- When off, a <Tab> always inserts blanks according to 'tabstop' or 'softtabstop'.
+-- 'shiftwidth' is only used for shifting text left or right shift-left-right.
+-- What gets inserted (a <Tab> or spaces) depends on the 'expandtab' option.
+-- vim.opt.smarttab = true
+--
+-- Ignore case in search patterns, cmdline-completion, ... Can be overruled by using
+-- "\c" or "\C" in the pattern
+-- vim.opt.ignorecase = true
+-- Override the 'ignorecase' option if the search pattern contains upper case
+-- characters.  Only used when the search pattern is typed and 'ignorecase' option is
+-- on.  Used for the commands "/", "?", "n", "N", ":g" and ":s".  Not used for "*", "#",
+-- "gd", tag search, etc.
+-- vim.opt.smartcase = true
+--
+-- Nvim has no direct connection to the system clipboard. Instead it depends on a
+-- provider which transparently uses shell commands to communicate with the system
+-- clipboard or any other clipboard "backend". To ALWAYS use the clipboard for ALL
+-- operations (instead of interacting with the "+" and/or "*" registers explicitly):
+--
+--     set clipboard+=unnamedplus
+--
+-- The presence of a working clipboard tool implicitly enables the '+' and "*" registers.
+--
+-- "Paste" is a separate concept from clipboard: paste means "dump a bunch of text to
+-- the editor", whereas clipboard provides features like quote+ to get and set the OS
+-- clipboard directly. For example, middle-click or CTRL-SHIFT-v (macOS: CMD-v) in your
+-- terminal is "paste", not "clipboard": the terminal application (Nvim) just gets a
+-- stream of text, it does not interact with the clipboard directly.
+--
+-- X11 clipboard providers store text in "selections". Selections are owned by an
+-- application, so when the application gets closed, the selection text is lost. The
+-- contents of selections are held by the originating application (e.g., upon a copy),
+-- and only passed to another application when that other application requests them
+-- (e.g., upon a paste).
+--
+-- There are three documented X11 selections: PRIMARY, SECONDARY, and CLIPBOARD.
+-- CLIPBOARD is typically used in X11 applications for copy/paste operations
+-- (CTRL-c/CTRL-v), while PRIMARY is used for the last selected text, which is generally
+-- inserted with the middle mouse button.
+--
+-- Nvim's X11 clipboard providers only use the PRIMARY and CLIPBOARD selections, for the
+-- "*" and "+" registers, respectively.
+--
+-- This option is a list of comma-separated names.
+--   unnamed - When included, Vim will use the clipboard register "*" for all yank,
+--             delete, change and put operations which would normally go to the unnamed
+--             register. When a register is explicitly specified, it will always be used
+--             regardless of whether "unnamed" is in 'clipboard' or not.  The clipboard
+--             register can always be explicitly accessed using the "* notation.
+--   unnamedplus - A variant of the "unnamed" flag which uses the clipboard register "+"
+--                 (quoteplus) instead of register "*" for all yank, delete, change and
+--                 put operations which would normally go to the unnamed register.  When
+--                 "unnamed" is also included to the option, yank and delete operations
+--                 (but not put) will additionally copy the text into register "*". See
+--                 clipboard.
+-- default: ""
+-- vim.opt.clipboard = "unnamedplus"
+--
+-- vim.opt.mouse = "a" -- Enable the use of the mouse in specified mode. "a" means "all"
+-- vim.opt.title = true -- When on, the title of the window will be set to the value of 'titlestring'
+-- vim.opt.splitbelow = true -- When on, splitting a window will put the new window below the current one :split
+-- vim.opt.splitright = true -- When on, splitting a window will put the new window right of the current one. :vsplit
+--
+-- vim.opt.ttimeoutlen = 0 -- The time in milliseconds that is waited for a key code or mapped key sequence to complete.
+-- vim.opt.wildmenu = true -- When 'wildmenu' is on, command-line completion operates in an enhanced mode.
