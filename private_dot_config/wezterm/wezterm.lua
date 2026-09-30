@@ -27,7 +27,8 @@ config.default_prog = { "/usr/bin/zsh", "--interactive" }
 --   - local shell is zsh
 --   - remote shell is bash
 --   - config.term is 'wezterm'
--- config.term = "wezterm"
+-- ... but who cares: why would you want to have Bash as interactive shell anyway?
+config.term = "wezterm"
 
 appearance.apply_to_config(config)
 
