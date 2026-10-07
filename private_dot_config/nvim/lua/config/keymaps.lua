@@ -14,3 +14,6 @@ end
 -- Remove keymaps that open `lazygit` inside of nvim
 -- pcall(vim.keymap.del, "n", "<leader>gg")
 -- pcall(vim.keymap.del, "n", "<leader>gG")
+
+vim.keymap.set('n', '<C-j>', '10jzz')
+vim.keymap.set('n', '<C-k>', '10kzz')
