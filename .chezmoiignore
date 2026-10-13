@@ -89,4 +89,10 @@ scratchpad/
 !.local/share/zsh/.keep
 !.cache/zsh/.keep
 
+# 7. WezTerm sets TERM=wezterm; without this terminfo, zle on the remote can't redraw
+#    (broken backspace, autosuggestion garbage)
+!.terminfo/
+!.terminfo/w/
+!.terminfo/w/wezterm
+
 {{- end }}
