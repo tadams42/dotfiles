@@ -4,10 +4,10 @@
 
 ## Install on new machine
 
-1. Install `chezmoi` into `~/bin/chezmoi`:
+1. Install `chezmoi` binary into `/usr/local/bin/`:
 
    ```sh
-   sh -c "$(curl -fsLS get.chezmoi.io)"
+   sh -c "$(curl -fsLS get.chezmoi.io)" -b /usr/local/bin
    ```
 
 2, Install dotfiles from remote repository:
@@ -36,15 +36,46 @@ or, use `VS Code` to edit `$HOME/.local/share/chezmoi/` and then:
 chezmoi apply
 ```
 
-## Note on remote machines
+## Notes
 
-The whole repo is deployed only on one host - my laptop. And this is determined by
-hardcoded `hostname`.
+### Deploying on local machine vs. any other host
 
-On any other host ("remote"), only smaller subset of files are deployed via `chezmoi apply`.
+Deploying this `dotfiles` on my main machine (laptop) is differs substantially to from
+deploying it on any other host.
 
-This is intentional. On some VMs where I deploy this, I work with other people and we
-all share single user account on these machines. Modifying `zsh` on these hosts is
-kind-of-sort-of OK. Modifying config for most of other tools is not. So I don't do it.
+Most of the `dotfiles` from this repo **IS NOT** copied to remote machines via `chezmoi
+apply` or other `chezmoi` commands.
 
-Still haven't found better way to enforce this behavior, besides hardcoded `hostname`.
+This is intentional and is controlled by:
+
+- hardcoded `hostname` in `chezmoi.toml.tmpl` used to calculate value of `isLaptop` variable
+- parts of `.chezmoiignore`
+
+Why this behavior?
+
+In my day to day work, there are many internal, remote `VM`s that I use on which I have
+account shared with other people. Modifying `zsh` configuration for this shared account
+is kind-of-sort-of OK. Modifying other configs often is not, so I don't do it.
+
+Why hardcoded `hostname` to select wanted behavior?
+
+Still haven't found better way to do it. 🫣
+
+### `WezTerm` and it's `terminfo` on remote hosts
+
+If using any terminal emulator besides `WezTerm`: everything will just work.
+
+If using `WezTerm` and all the machines you are accessing (both, local and remote) have these `dotfiles` installed: everything will just work.
+
+If using `WezTerm` on a machine that has these dotfiles installed to access (`ssh`) machine that doesn't: expect problems. This is the scenario:
+
+1. `WezTerm` configured by these `dotfiles` sets `TERM=wezterm`
+2. `ssh` passes `TERM` to remote machine when establishing connection
+3. remote `zsh` line editor (`zle`) can't find `terminfo` named `wezterm` and defaults to something else
+4. sequences that `zle` generates in this scenario are incorrectly interpreted by receiving `WezTerm`
+
+To avoid all this either install these dotfiles on remote hosts or specify different, usually system-wide available, `terminfo` with `ssh`:
+
+```sh
+TERM=xterm-256color ssh …
+```
