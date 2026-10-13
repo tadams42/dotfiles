@@ -28,6 +28,11 @@ source $HOME/.config/zsh/shell_configuration/05_completion.zsh
 # Initialization of these tolls can be slow - so we don't want it to execute in any of
 # other shell initialization files - don't put them into `zshenv`
 ########################################################################################
+
+# Following two must retain this order of initialization. See `atuin.zsh` for details.
+source $HOME/.config/zsh/cli_utilities_configuration/fzf.zsh
+source $HOME/.config/zsh/cli_utilities_configuration/atuin.zsh
+
 source $HOME/.config/zsh/cli_utilities_configuration/aws_cli.sh
 source $HOME/.config/zsh/cli_utilities_configuration/bat.sh
 source $HOME/.config/zsh/cli_utilities_configuration/coreutils.sh
