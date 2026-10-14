@@ -210,6 +210,31 @@ local function set_theme(config)
 	-- config.color_scheme = "Tokyo Night"
 end
 
+local function background_opacity(config)
+	-- config.window_background_opacity = 0.90 -- 1.0 = opaque, 0.0 = fully transparent
+	-- config.text_background_opacity = 1.0 -- keep text cells crisp (default)
+
+	-- Optional, KDE only: blur whatever is behind the window (frosted-glass look)
+	-- config.wayland_window_background_blur = false
+
+	-- WezTerm supports background images, animated GIFs, gradients, and several layers
+	-- stacked on top of each other. The modern way is config.background, which takes a
+	-- list of layers drawn bottom to top:
+	config.background = {
+		{
+			source = { File = wezterm.home_dir .. "/.config/wezterm/background.jpg" },
+			width = "Cover", -- scale to fill the window, like CSS background-size: cover
+			height = "Cover",
+			horizontal_align = "Center",
+			vertical_align = "Middle",
+			repeat_x = "NoRepeat",
+			repeat_y = "NoRepeat",
+			hsb = { brightness = 0.10 }, -- darken it heavily so text stays readable
+			opacity = 1,        -- per-layer transparency (replaces window_background_opacity)
+		},
+	}
+end
+
 function module.apply_to_config(config)
 	-- Global font
 	config.font = wezterm.font({ family = PRIMARY_FONT, weight = "Regular", italic = false })
@@ -224,6 +249,7 @@ function module.apply_to_config(config)
 	set_theme(config)
 	tab_bar(config)
 	-- tab_title(config)
+	background_opacity(config)
 end
 
 return module
