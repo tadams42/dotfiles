@@ -31,7 +31,7 @@ Defined in `.chezmoi.toml.tmpl` and available in all `*.tmpl` files:
 
 | Variable | Meaning |
 |---|---|
-| `.isMainLaptop` | `true` only on hostname `angie-ubuntu` |
+| `.isMainLaptop` | `true` only on hostnames listed in `$mainHosts` (`angie-ubuntu`, `tellus-office-nuc`) |
 | `.isRemote` | `true` on any machine that is not the main laptop |
 | `.isRoot` | `true` when running as UID 0 |
 

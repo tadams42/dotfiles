@@ -15,7 +15,8 @@
 # fi
 # ```
 
-{{- $isLaptop := eq .chezmoi.hostname "angie-ubuntu" }}
+{{- $mainHosts := list "angie-ubuntu" "tellus-office-nuc" }}
+{{- $isLaptop := has .chezmoi.hostname $mainHosts }}
 {{- $isRoot := eq (int .chezmoi.uid) 0 }}
 
 [data]
