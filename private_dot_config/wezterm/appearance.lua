@@ -12,52 +12,69 @@ local F_MESLO = "MesloLGS NF"
 
 local PRIMARY_FONT = F_HACK
 local PRIMARY_FONT_SIZE = 11.0
-local TAB_BAR_FONT = F_HACK
-local TAB_BAR_FONT_SIZE = 9.0
 
-local function tab_bar(config)
+-- Rounded powerline caps, same glyphs catppuccin-tmux uses
+local ROUND_LEFT = wezterm.nerdfonts.ple_left_half_circle_thick   -- U+E0B6
+local ROUND_RIGHT = wezterm.nerdfonts.ple_right_half_circle_thick -- U+E0B4
+
+-- Tab bar background. Fully transparent so background image shows through and tab bar
+-- looks like a part of terminal canvas rather than a separate GUI element.
+local BAR_BG = "rgba(0,0,0,0)"
+
+-- Catppuccin Mocha palette
+local C = {
+	crust = "#11111b",
+	surface0 = "#313244",
+	overlay0 = "#6c7086",
+	text = "#cdd6f4",
+	subtext0 = "#a6adc8",
+	green = "#a6e3a1",
+	peach = "#fab387",
+	pink = "#f5c2e7",
+	blue = "#89b4fa",
+}
+
+local function setup_tab_bar(config)
+	-- Retro tab bar is rendered in terminal cell grid, using config.font, which is what
+	-- makes it look like a part of terminal canvas (same as tmux status line).
+	-- window_frame settings (font, font_size, titlebar colors) apply only to fancy tab
+	-- bar and are ignored here.
+	config.use_fancy_tab_bar = false
+
 	-- Specifies the maximum width that a tab can have in the tab bar when using retro
 	-- tab mode. It is ignored when using fancy tab mode.
 	config.tab_max_width = 32
-	-- config.use_fancy_tab_bar  = false
 
 	config.hide_tab_bar_if_only_one_tab = false
-	-- config.show_close_tab_button_in_tabs = false
 	config.show_new_tab_button_in_tab_bar = false
-	config.tab_bar_at_bottom = true
-
-	-- -------------------------------------------------------------------------------------
-	-- Configures tab bar apearance
-	-- -------------------------------------------------------------------------------------
-	config.window_frame = {
-		-- The font used in the tab bar.
-		-- Roboto Bold is the default; this font is bundled
-		-- with wezterm.
-		-- Whatever font is selected here, it will have the
-		-- main font setting appended to it to pick up any
-		-- fallback fonts you may have used there.
-		-- font = wezterm.font("Hack Nerd Font Mono", { weight = "Regular" }),
-		font = wezterm.font(TAB_BAR_FONT, { weight = "Regular" }),
-
-		-- The size of the font in the tab bar...
-		-- ... but only if use_fancy_tab_bar is true
-		-- Default to 10.0 on Windows but 12.0 on other systems
-		font_size = TAB_BAR_FONT_SIZE,
-
-		-- The overall background color of the tab bar when
-		-- the window is focused
-		active_titlebar_bg = "#333333",
-
-		-- The overall background color of the tab bar when
-		-- the window is not focused
-		inactive_titlebar_bg = "#333333",
-	}
+	config.tab_bar_at_bottom = false
 
 	config.colors = {
 		tab_bar = {
-			-- The color of the inactive tab bar edge/divider
-			inactive_tab_edge = "#575757",
+			background = BAR_BG,
+			active_tab = { bg_color = BAR_BG, fg_color = C.text },
+			inactive_tab = { bg_color = BAR_BG, fg_color = C.subtext0 },
+			inactive_tab_hover = { bg_color = BAR_BG, fg_color = C.text },
 		},
+	}
+end
+
+-- Pill shaped segment: rounded cap, colored icon cell, text cell on surface, rounded cap
+local function pill(icon, icon_bg, text, text_fg)
+	return {
+		{ Background = { Color = BAR_BG } },
+		{ Foreground = { Color = icon_bg } },
+		{ Text = ROUND_LEFT },
+		{ Background = { Color = icon_bg } },
+		{ Foreground = { Color = C.crust } },
+		{ Text = icon .. " " },
+		{ Background = { Color = C.surface0 } },
+		{ Foreground = { Color = text_fg } },
+		{ Text = " " .. text .. " " },
+		{ Background = { Color = BAR_BG } },
+		{ Foreground = { Color = C.surface0 } },
+		{ Text = ROUND_RIGHT },
+		{ Text = " " },
 	}
 end
 
@@ -91,16 +108,25 @@ local PROCESS_ICONS = {
 	["gh"] = wezterm.nerdfonts.dev_github_badge,
 	["ruby"] = wezterm.nerdfonts.cod_ruby,
 }
--- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+
+-- Basename of a pane's cwd Url, or "~" for $HOME
+local function cwd_basename(url)
+	if not url or not url.file_path then
+		return ""
+	end
+	-- WezTerm cwd Urls usually end with "/" (file:///home/me/foo/), strip it first
+	local path = string.gsub(url.file_path, "[/\\]+$", "")
+	if path == "" then
+		return "/"
+	end
+	if path == string.gsub(os.getenv("HOME"), "[/\\]+$", "") then
+		return "~"
+	end
+	return (string.gsub(path, "^.*[/\\]", ""))
+end
 
 local function get_current_working_dir(tab)
-	local current_dir = tab.active_pane and tab.active_pane.current_working_dir or { file_path = "" }
-	local HOME_DIR = os.getenv("HOME")
-
-	return current_dir.file_path == HOME_DIR and "~" or string.gsub(current_dir.file_path, "(.*[/\\])(.*)", "%2")
+	return cwd_basename(tab.active_pane and tab.active_pane.current_working_dir)
 end
 
 local function get_process(tab)
@@ -116,7 +142,7 @@ local function get_process(tab)
 	return PROCESS_ICONS[process_name] or string.format("[%s]", process_name)
 end
 
-local function tab_title(config)
+local function setup_tab_title(config)
 	wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 		local has_unseen_output = false
 		if not tab.is_active then
@@ -128,57 +154,56 @@ local function tab_title(config)
 			end
 		end
 
-		local cwd = wezterm.format({
-			{ Text = get_current_working_dir(tab) },
-		})
+		local title
+		if tab.tab_title and #tab.tab_title > 0 then
+			-- explicitly set by `wezterm cli set-tab-title` or tab:set_title()
+			title = tab.tab_title
+		else
+			local process = get_process(tab)
+			title = process and string.format("%s %s", process, get_current_working_dir(tab)) or "[?]"
+		end
+		local number = tostring(tab.tab_index + 1)
 
-		local process = get_process(tab)
-		local title = process and string.format(" %s %s ", process, cwd) or " [?] "
-
-		if not tab.is_active then
-			return {
-				-- { Background = { Color = '#0b0022' } },
-				-- { Foreground = { Color = '#1b1032' } },
-				-- { Text = SOLID_LEFT_ARROW },
-
-				{ Text = title },
-
-				-- { Background = { Color = '#0b0022' } },
-				-- { Foreground = { Color = '#1b1032' } },
-				{ Text = SOLID_RIGHT_ARROW },
-			}
+		-- Like catppuccin-tmux: title on surface, tab number in colored cell on the right
+		local accent = C.overlay0
+		local title_fg = C.subtext0
+		if tab.is_active then
+			accent = C.peach
+			title_fg = C.text
+		elseif has_unseen_output then
+			accent = C.blue
 		end
 
-		if has_unseen_output then
-			return {
-				-- { Background = { Color = '#0b0022' } },
-				-- { Foreground = { Color = '#2b2042' } },
-				-- { Text = SOLID_LEFT_ARROW },
-
-				{ Foreground = { Color = "#28719c" } },
-				{ Text = title },
-
-				-- { Background = { Color = '#0b0022' } },
-				-- { Foreground = { Color = '#2b2042' } },
-				{ Text = SOLID_RIGHT_ARROW },
-			}
-		end
+		-- 2 caps + 3 spaces + number; keep room for them so caps survive truncation
+		title = wezterm.truncate_right(title, math.max(1, max_width - #number - 5))
 
 		return {
-			-- { Background = { Color = '#0b0022' } },
-			-- { Foreground = { Color = '#2b2042' } },
-			-- { Text = SOLID_LEFT_ARROW },
-
-			{ Text = title },
-
-			-- { Background = { Color = '#0b0022' } },
-			-- { Foreground = { Color = '#2b2042' } },
-			{ Text = SOLID_RIGHT_ARROW },
+			{ Background = { Color = BAR_BG } },
+			{ Foreground = { Color = C.surface0 } },
+			{ Text = ROUND_LEFT },
+			{ Background = { Color = C.surface0 } },
+			{ Foreground = { Color = title_fg } },
+			{ Text = title .. " " },
+			{ Background = { Color = accent } },
+			{ Foreground = { Color = C.crust } },
+			{ Text = " " .. number },
+			{ Background = { Color = BAR_BG } },
+			{ Foreground = { Color = accent } },
+			{ Text = ROUND_RIGHT },
+			{ Text = " " },
 		}
 	end)
 end
 
-local function set_theme(config)
+-- Right: cwd of active pane.
+local function setup_tab_status_update(config)
+	wezterm.on("update-status", function(window, pane)
+		local dir = cwd_basename(pane:get_current_working_dir())
+		window:set_right_status(wezterm.format(pill(wezterm.nerdfonts.fa_folder, C.pink, dir, C.text)))
+	end)
+end
+
+local function setup_theme(config)
 	-- config.color_scheme = 'Atom'
 	-- config.color_scheme = 'Atom (Gogh)'
 	-- config.color_scheme = 'Bamboo'
@@ -210,7 +235,7 @@ local function set_theme(config)
 	-- config.color_scheme = "Tokyo Night"
 end
 
-local function background_opacity(config)
+local function setup_background_image_and_opacity(config)
 	-- config.window_background_opacity = 0.90 -- 1.0 = opaque, 0.0 = fully transparent
 	-- config.text_background_opacity = 1.0 -- keep text cells crisp (default)
 
@@ -243,13 +268,14 @@ function module.apply_to_config(config)
 	-- Acceptable values are SteadyBlock, BlinkingBlock, SteadyUnderline, BlinkingUnderline, SteadyBar, and BlinkingBar.
 	config.default_cursor_style = "SteadyBlock"
 
-	config.enable_scroll_bar = true
+	-- config.enable_scroll_bar = true
 	config.scrollback_lines = 50000
 
-	set_theme(config)
-	tab_bar(config)
-	-- tab_title(config)
-	background_opacity(config)
+	setup_theme(config)
+	setup_tab_bar(config)
+	setup_tab_title(config)
+	setup_tab_status_update(config)
+	setup_background_image_and_opacity(config)
 end
 
 return module
