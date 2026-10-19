@@ -2,7 +2,8 @@
 ## All data file paths default to being relative to this directory.
 ## linux/mac: ~/.local/share/atuin (or XDG_DATA_HOME/atuin)
 ## windows: %USERPROFILE%/.local/share/atuin
-# data_dir = "~/.local/share/atuin"
+## pinned: atuin >= 18.24 defaults to ~/.atuin/data
+data_dir = "~/.local/share/atuin"
 
 ## where to store your database, default is your system data directory
 ## linux/mac: ~/.local/share/atuin/history.db
