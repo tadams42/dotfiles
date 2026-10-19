@@ -44,7 +44,7 @@ scratchpad/
 #    opens the directory node only; without `!.config/zsh/**` the directory is deployed
 #    empty. `!.config/starship.toml` un-ignores exactly that one file.
 
-{{- if .isRemote }}
+{{- if .isSmallSubset }}
 
 # 1. on remote machines ignore everything, at every depth...
 **

@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # Google pertools pprof is renamed in Ubuntu because there are other packages
 # containing this command

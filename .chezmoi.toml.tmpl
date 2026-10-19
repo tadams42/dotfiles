@@ -3,7 +3,7 @@
 # Some of exported configuration makes zero sense on `root` accounts and only pollutes
 # root's env.
 #
-# For these reasons, we define `data.isMainLaptop` and `data.isRoot`.
+# For these reasons, we define `data.isFullSet` and `data.isUserRoot`.
 # They can be used in chezmoi templates to emit only parts of config that is necessary.
 #
 # For shell scripts, we even avoid emitting parts of config instead of just blocking it
@@ -15,16 +15,16 @@
 # fi
 # ```
 
-{{- $mainHosts := list "angie-ubuntu" "tellus-office-nuc" }}
-{{- $isLaptop := has .chezmoi.hostname $mainHosts }}
-{{- $isRoot := eq (int .chezmoi.uid) 0 }}
+{{- $fullSetHosts := list "angie-ubuntu" "tellus-office-nuc" }}
+{{- $isInFullSetHosts := has .chezmoi.hostname $fullSetHosts }}
+{{- $isUserRoot := eq (int .chezmoi.uid) 0 }}
 
 [data]
-    isMainLaptop = {{ $isLaptop }}
-    isRemote = {{ not $isLaptop }}
-    isRoot = {{ $isRoot }}
+    isFullSet = {{ $isInFullSetHosts }}
+    isSmallSubset = {{ not $isInFullSetHosts }}
+    isUserRoot = {{ $isUserRoot }}
 
-{{- if and $isLaptop (not $isRoot) }}
+{{- if and $isInFullSetHosts (not $isUserRoot) }}
 
 [edit]
     command = "code"

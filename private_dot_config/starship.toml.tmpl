@@ -1,5 +1,5 @@
-{{- $isRemote := not (default false (index . "isMainLaptop")) -}}
-{{- $isRoot := eq (int .chezmoi.uid) 0 -}}
+{{- $isSmallSubset := not (default false (index . "isFullSet")) -}}
+{{- $isUserRoot := eq (int .chezmoi.uid) 0 -}}
 
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -51,14 +51,14 @@ format = '[$user]($style)'
 ssh_only = false
 # ssh_symbol = " "
 
-{{- if $isRemote }}
+{{- if $isSmallSubset }}
 ssh_symbol = '🌐'
 {{- else }}
 ssh_symbol = '@'
 {{- end }}
 
 # format = '[$ssh_symbol$hostname]($style)'
-{{- if $isRemote }}
+{{- if $isSmallSubset }}
 format = '[🌐$hostname]($style)'
 {{- else }}
 format = '[@$hostname]($style)'

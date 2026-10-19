@@ -2,7 +2,7 @@
 
 (( $+commands[fnm] )) || return
 
-{{- if not .isRoot }}
+{{- if not .isUserRoot }}
 
 # Setup FNM only for non-root accounts
 if [ "$EUID" -ne 0 ] ; then

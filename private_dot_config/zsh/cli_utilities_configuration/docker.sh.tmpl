@@ -2,13 +2,13 @@
 
 (( $+commands[docker] )) || return
 
-{{- if not .isRoot }}
+{{- if not .isUserRoot }}
 
 export DOCKER_BUILDKIT=1
 
 {{- end }}
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # https://docs.docker.com/reference/cli/docker/#change-the-docker-directory
 export DOCKER_CONFIG=$HOME/.config/docker

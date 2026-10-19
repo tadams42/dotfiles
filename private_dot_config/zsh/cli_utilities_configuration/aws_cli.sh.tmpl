@@ -2,7 +2,7 @@
 
 (( $+commands[aws] )) || return
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 ########################################################################################
 ## AWS cli with SSO profile as default
 #

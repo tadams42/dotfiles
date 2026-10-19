@@ -14,7 +14,7 @@ nvim .
 ## System level requirements
 
 ```sh
-sudo apt install luarocks wl-clipboard nodejs curl
+sudo apt install luarocks wl-clipboard nodejs npm curl
 
 sudo relget install --prefix=/usr/local \
     uv ripgrep fd fzf jq lazygit stylua eza yq tree-sitter-cli

@@ -2,7 +2,7 @@
 
 (( $+commands[rg] )) || return
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 ########################################################################################
 # ripgrep will not look in any predetermined directory for a config file automatically.

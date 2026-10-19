@@ -29,17 +29,17 @@ This is a [chezmoi](https://www.chezmoi.io/) dotfiles repository targeting ZSH c
 
 Defined in `.chezmoi.toml.tmpl` and available in all `*.tmpl` files:
 
-| Variable | Meaning |
-|---|---|
-| `.isMainLaptop` | `true` only on hostnames listed in `$mainHosts` (`angie-ubuntu`, `tellus-office-nuc`) |
-| `.isRemote` | `true` on any machine that is not the main laptop |
-| `.isRoot` | `true` when running as UID 0 |
+| Variable         | Meaning                                            |
+| ---------------- | -------------------------------------------------- |
+| `.isFullSet`     | `true` only on hostnames listed in `$fullSetHosts` |
+| `.isSmallSubset` | `true` on any machine that is not the main laptop  |
+| `.isUserRoot`    | `true` when running as UID 0                       |
 
-Most `cli_utilities_configuration/*.sh.tmpl` files gate their entire content behind `{{- if and (not .isRoot) .isMainLaptop }}` — those tools are only configured on the main laptop.
+Most `cli_utilities_configuration/*.sh.tmpl` files gate their entire content behind `{{- if and (not .isUserRoot) .isFullSet }}` — those tools are only configured on the main laptop.
 
 ### Deployment scope: main laptop vs. remote
 
-`.chezmoiignore` uses a **whitelist strategy for remote machines**: when `.isRemote` is true, it ignores everything (`*`) then explicitly un-ignores only what remote machines need. This means adding a new file that should deploy to remote machines requires adding an `!path` entry to the ignore file.
+`.chezmoiignore` uses a **whitelist strategy for remote machines**: when `.isSmallSubset` is true, it ignores everything (`*`) then explicitly un-ignores only what remote machines need. This means adding a new file that should deploy to remote machines requires adding an `!path` entry to the ignore file.
 
 Remote machines receive: `.zshenv`, the full `~/.config/zsh/` directory (all ZSH config), `starship.toml`, `ripgrep.rc`, and empty `.keep` files to create the required `~/.local/share/zsh/` and `~/.cache/zsh/` directory structure.
 

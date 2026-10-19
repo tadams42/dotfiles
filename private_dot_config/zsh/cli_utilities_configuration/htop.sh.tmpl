@@ -1,6 +1,6 @@
 # htop aliases and similar stuff
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # -u --user[=USERNAME|UID]
 #    Show only the processes of a given user, or self if omitted

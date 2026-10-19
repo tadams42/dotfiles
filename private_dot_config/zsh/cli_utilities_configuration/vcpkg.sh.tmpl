@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 export VCPKG_ROOT="$HOME/projects/github/vcpkg"
 export PATH="$PATH:$VCPKG_ROOT"

@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # https://developer.hashicorp.com/vagrant/docs/other/environmental-variables#vagrant_home
 export VAGRANT_HOME="$XDG_CONFIG_HOME/vagrant.d"

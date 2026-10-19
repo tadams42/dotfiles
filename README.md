@@ -38,24 +38,18 @@ chezmoi apply
 
 ## Notes
 
-### Deploying on local machine vs. any other host
+### Machines with smaller subset of these dotfiles
 
-Deploying this `dotfiles` on my main machine (laptop) is differs substantially to from
-deploying it on any other host.
-
-Most of the `dotfiles` from this repo **IS NOT** copied to remote machines via `chezmoi
-apply` or other `chezmoi` commands.
+`chezmoi apply` deploys all files from this repo only on my main machine. On most other machines, it only deploys small subset.
 
 This is intentional and is controlled by:
 
-- hardcoded `hostname` in `chezmoi.toml.tmpl` used to calculate value of `isLaptop` variable
+- list of hardcoded `hostname`s in `.chezmoi.toml.tmpl`
 - parts of `.chezmoiignore`
 
 Why this behavior?
 
-In my day to day work, there are many internal, remote `VM`s that I use on which I have
-account shared with other people. Modifying `zsh` configuration for this shared account
-is kind-of-sort-of OK. Modifying other configs often is not, so I don't do it.
+Many `VM`s that I use have one common `ssh` account used by few different people. On these machines, it is common to leave `bash` as default, login shell. And that allows me to deploy `zsh` settings from my `dotfiles` (and few others). Everything else **is not and should not** be deployed.
 
 Why hardcoded `hostname` to select wanted behavior?
 

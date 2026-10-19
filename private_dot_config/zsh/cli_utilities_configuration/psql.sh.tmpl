@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # https://gnupg.org/documentation/manuals/gnupg/GPG-Configuration.html
 export PSQL_HISTORY="$XDG_STATE_HOME/psql/history"

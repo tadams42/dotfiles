@@ -128,7 +128,7 @@ setopt COMBINING_CHARS
 # enable redirect to multiple streams: echo >file1 >file2
 setopt MULTIOS
 
-{{ if not .isRoot }}
+{{ if not .isUserRoot }}
 # Prioritize PATH bin directories in $HOME this way:
 #     - $HOME/bin
 #     - $HOME/.local/bin

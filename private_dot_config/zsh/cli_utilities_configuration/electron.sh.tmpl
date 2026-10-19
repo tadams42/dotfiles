@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-{{- if and (not .isRoot) .isMainLaptop }}
+{{- if and (not .isUserRoot) .isFullSet }}
 
 # If we don't set this, VSCode will hang deleting stuff from file browser. Probably
 # issue in Electron itself, as stated here:
