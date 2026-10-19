@@ -2,6 +2,7 @@ README.md
 CLAUDE.md
 static/
 .vscode/
+.config/nvim/lazy-lock.json
 
 # | Pattern         | Effect                                                       |
 # | --------------- | ------------------------------------------------------------ |
