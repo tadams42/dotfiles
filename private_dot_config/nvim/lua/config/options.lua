@@ -13,6 +13,10 @@ vim.opt.termguicolors = true
 -- if missing.
 vim.opt.fixendofline = true
 
+-- Vim default: system clipboard only via explicit "+ / "* registers (LazyVim sets
+-- "unnamedplus")
+vim.opt.clipboard = ""
+
 require("config.old_vim_options")
 
 require("config.plugin_language_providers")

@@ -17,3 +17,6 @@ end
 
 vim.keymap.set('n', '<C-j>', '10jzz')
 vim.keymap.set('n', '<C-k>', '10kzz')
+
+-- Like every other app: mouse selection goes to PRIMARY (middle-click paste)
+vim.keymap.set('x', '<LeftRelease>', '"*ygv', { desc = "Copy mouse selection to PRIMARY" })
