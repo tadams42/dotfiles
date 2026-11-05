@@ -1,4 +1,5 @@
 font-family = "Hack Nerd Font Mono"
+font-size = 11
 
 # theme = Breeze
 # theme = Monokai Classic
@@ -6,9 +7,39 @@ font-family = "Hack Nerd Font Mono"
 # theme = TokyoNight Night
 theme = Catppuccin Mocha
 
+# Block cursor. Note: the packaged launcher (.desktop and D-Bus service) passes
+# `--shell-integration-features=ssh-env`, which REPLACES the feature list below and
+# re-enables `cursor` (steady bar at the prompt). zsh strips it again, see
+# ~/.config/zsh/cli_utilities_configuration/ghostty.zsh
 cursor-style = block
 cursor-style-blink = false
 shell-integration = zsh
-shell-integration-features = no-cursor
+# `title` is off because ghostty.zsh sets WezTerm-like tab titles itself
+shell-integration-features = no-cursor,no-title,ssh-env
 
 mouse-hide-while-typing = true
+
+# Background image, same as WezTerm. WezTerm darkens it with `hsb brightness 0.10`;
+# Ghostty has no brightness knob, so blend the image into a black background instead
+# (opacity < 1 mixes image with `background`).
+background = #000000
+background-image = ~/.config/ghostty/background.jpg
+background-image-fit = cover
+background-image-position = center
+background-image-opacity = 0.10
+
+# Tab bar: always visible, Catppuccin colors, pill shaped tabs styled in tabs.css.
+# KDE draws its own (server side) titlebar, so drop Ghostty's GTK headerbar to avoid
+# two stacked titlebars - same layout as WezTerm: KDE titlebar + tab bar.
+window-show-tab-bar = always
+gtk-titlebar = false
+gtk-wide-tabs = false
+gtk-toolbar-style = flat
+window-theme = ghostty
+window-titlebar-background = #11111b
+window-titlebar-foreground = #cdd6f4
+window-title-font-family = "Hack Nerd Font Propo"
+gtk-custom-css = ?tabs.css
+
+# WezTerm maximizes its window on startup
+maximize = true

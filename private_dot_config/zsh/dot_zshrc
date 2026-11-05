@@ -40,6 +40,7 @@ source $HOME/.config/zsh/cli_utilities_configuration/dev_vars.sh
 source $HOME/.config/zsh/cli_utilities_configuration/docker.sh
 source $HOME/.config/zsh/cli_utilities_configuration/electron.sh
 source $HOME/.config/zsh/cli_utilities_configuration/fnm.sh
+source $HOME/.config/zsh/cli_utilities_configuration/ghostty.zsh
 source $HOME/.config/zsh/cli_utilities_configuration/gnupg.sh
 source $HOME/.config/zsh/cli_utilities_configuration/grep.sh
 source $HOME/.config/zsh/cli_utilities_configuration/htop.sh
