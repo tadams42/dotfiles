@@ -1,0 +1,49 @@
+# Local override of /usr/share/applications/com.microsoft.VSCode.desktop
+#
+# Only change from the packaged file: both Exec lines run the CLI wrapper
+# /usr/bin/code instead of the raw Electron binary /usr/share/code/code.
+#
+# Why: KDE Plasma launches .desktop apps inside a transient systemd
+# app-*@<uuid>.service. The raw Electron binary then moves its main process
+# into its own app-*-<pid>.scope, splitting VS Code's process tree across two
+# units. VS Code misbehaves under that split:
+#   - 1.129 (2026-07): window died ~2s after a panel/menu launch.
+#   - 1.146 (2026-11): when a workspace is restored at startup, the window
+#     deadlocks ("This window is not responding"), or once crashed with
+#     renderer code 135 (SIGBUS). Empty-window starts and terminal launches
+#     were unaffected.
+# The /usr/bin/code wrapper spawns Electron detached, which avoids the split.
+#
+# The filename MUST match the packaged desktop file, or it doesn't shadow it.
+# It used to be code.desktop; the package renamed it to com.microsoft.VSCode.desktop,
+# which silently disabled the earlier override. Re-check after VS Code updates.
+#
+# Remove once a panel launch that restores a workspace works without this file.
+[Desktop Entry]
+Name=Visual Studio Code
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=/usr/bin/code %F
+Icon=vscode
+Type=Application
+StartupNotify=false
+StartupWMClass=com.microsoft.VSCode
+Categories=TextEditor;Development;IDE;
+MimeType=application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Name[cs]=Nové prázdné okno
+Name[de]=Neues leeres Fenster
+Name[es]=Nueva ventana vacía
+Name[fr]=Nouvelle fenêtre vide
+Name[it]=Nuova finestra vuota
+Name[ja]=新しい空のウィンドウ
+Name[ko]=새 빈 창
+Name[ru]=Новое пустое окно
+Name[zh_CN]=新建空窗口
+Name[zh_TW]=開新空視窗
+Exec=/usr/bin/code --new-window %F
+Icon=vscode
