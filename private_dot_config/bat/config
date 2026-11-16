@@ -1,1 +1,5 @@
 --theme="Catppuccin Mocha"
+
+# Same as `-p`: no line numbers, grid, or header. Override per call with e.g.
+# `bat --style=full` or `bat --style=numbers,changes`.
+--style=plain
