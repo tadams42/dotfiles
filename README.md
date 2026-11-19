@@ -14,6 +14,9 @@
 
    ```sh
    chezmoi init --apply https://github.com/tadams42/dotfiles
+   zsh
+   atuin import zsh
+   atuin import bash
    ```
 
 ## Update already managed machine
